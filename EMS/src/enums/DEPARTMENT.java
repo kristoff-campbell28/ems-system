@@ -5,6 +5,4 @@ public enum DEPARTMENT {
 	    IT, 
 	    MARKETING, 
 	    HR;
-
-	
 }
