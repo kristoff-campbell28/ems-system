@@ -1,20 +1,11 @@
 package employmentSystem;
 
-import java.util.Date;
-
 import enums.DEPARTMENT;
 import enums.GENDER;
 import enums.JOBTITLE;
 
-
-
-
-
 public class Employee extends Person {
 
-
-
-	
 	private static int idIncrement = 1; //Should this start at 0?
 
 	protected String dateStartWork; //Ask for this one in pieces.

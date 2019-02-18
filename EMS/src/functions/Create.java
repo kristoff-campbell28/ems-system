@@ -2,7 +2,6 @@ package functions;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Scanner;
 
@@ -10,7 +9,6 @@ import employmentSystem.Address;
 import employmentSystem.Employee;
 import employmentSystem.MainClass;
 //import employmentSystem.Manager;
-import employmentSystem.Person;
 import enums.DEPARTMENT;
 import enums.GENDER;
 import enums.JOBTITLE;

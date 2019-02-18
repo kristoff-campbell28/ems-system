@@ -1,9 +1,6 @@
 package functions;
 
-import java.util.HashMap;
 import java.util.Scanner;
-
-import employmentSystem.Employee;
 import employmentSystem.MainClass;
 
 public class Delete {
