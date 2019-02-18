@@ -6,93 +6,45 @@ import enums.JOBTITLE;
 
 public class Employee extends Person {
 
-	private static int idIncrement = 1; //Should this start at 0?
+	private static int idIncrement = 1; // Should this start at 0?
 
-	protected String dateStartWork; //Ask for this one in pieces.
-	//Then combine the pieces to make a date. 
-	//This will define the date that work started. 
-	//date you startd employment.
-	public String getDateStartWork() {
-		return dateStartWork;
-	}
-
-	public void setDateStartWork(String dateStartWork) {
-		this.dateStartWork = dateStartWork;
-	}
-    
-    
-
+	public Address address;
+	protected String dateStartWork; // Ask for this one in pieces.
 	protected DEPARTMENT dept;
+	protected int employeeID; // Exactly 5 digits.
+	protected String email;
+	protected JOBTITLE jobTitle;
+	public Person person;
+	protected int ssn; // Ensure exactly 9 digits.
+	protected double salary; // Emphasize yearly. Two digits.
 
-    protected int employeeID; //Exactly 5 digits.
+	// Manager is element, not class?
 
-    protected String email; 
-
-    protected JOBTITLE jobTitle; 
-
-    protected int ssn; //Ensure exactly 9 digits.
-
-    protected double salary; //Emphasize yearly. Two digits.
-    
-    public Person person;
-    
-    public Address address; 
-    
-    
-    
-    
-    //Manager is element, not class? 
-
-
-	//This serves the purpose of counting how many employees are in the system.
+	// This serves the purpose of counting how many employees are in the system.
 	public Employee() {
 
-        super();
+		super();
 
-        this.employeeID = idIncrement;
+		this.employeeID = idIncrement;
 
-        idIncrement++;
+		idIncrement++;
 
-    }
-	
-	
+	}
+
 	@Override
 	public String toString() {
-		
-		
-		
-		return "Below are the details of employee with ID " + employeeID + " : \n"
-				+ "Date of birth is: " + dateOfBirth + "\n"
-				+ "Department they inhabit is: " + dept + "\n"
-				+ "Email is: " + email + "@Collabera.com \n"
-				+ "Their job title is: " + jobTitle + "\n"
-				+ "Social Security Number is: " 
-				+ Integer.toString(ssn).substring(0, 3) + "-" + Integer.toString(ssn).substring(3, 5) + "-" + Integer.toString(ssn).substring(5, 9)
-				+ "\n"
-				+ "Salary is: " + salary + "\n"
-				+ "Full name is: " + fullName + "\n"
-				+ "Age is: " + age + "\n"
-				+ "Phone Number is: " 
-				+ Long.toString(phoneNumber).substring(0, 3) + "-" + Long.toString(phoneNumber).substring(3, 6)
-				+ "-" + Long.toString(phoneNumber).substring(6, 9)
-				+ "\n"
-				+ "Date they joined the company is: " + dateStartWork + "\n"
-				+ "Their address is: \n" 
-				+ address.getStreetNumber()
-				 + " " + address.getStreetName() + "\n"
-				+ address.getCity() + ", " + address.getState() + 
-				" " + address.getZipCode();
-				
-				
-			
+		return "Below are the details of employee with ID " + employeeID + " : \n" + "Date of birth is: " + dateOfBirth
+				+ "\n" + "Department they inhabit is: " + dept + "\n" + "Email is: " + email + "@Collabera.com \n"
+				+ "Their job title is: " + jobTitle + "\n" + "Social Security Number is: "
+				+ Integer.toString(ssn).substring(0, 3) + "-" + Integer.toString(ssn).substring(3, 5) + "-"
+				+ Integer.toString(ssn).substring(5, 9) + "\n" + "Salary is: " + salary + "\n" + "Full name is: "
+				+ fullName + "\n" + "Age is: " + age + "\n" + "Phone Number is: "
+				+ Long.toString(phoneNumber).substring(0, 3) + "-" + Long.toString(phoneNumber).substring(3, 6) + "-"
+				+ Long.toString(phoneNumber).substring(6, 9) + "\n" + "Date they joined the company is: "
+				+ dateStartWork + "\n" + "Their address is: \n" + address.getStreetNumber() + " "
+				+ address.getStreetName() + "\n" + address.getCity() + ", " + address.getState() + " "
+				+ address.getZipCode();
 	}
-	
-	
-
-
-
-    
-   
 
 	public Employee(GENDER gender, int age, long phoneNumber, String dateOfBirth, String fullName, Address address,
 			String dateStartWork, DEPARTMENT dept, int employeeID, String email, JOBTITLE jobTitle, int ssn,
@@ -113,82 +65,75 @@ public class Employee extends Person {
 		return person;
 	}
 
-
 	public void setPerson(Person person) {
 		this.person = person;
 	}
-	
+
 	public Address getAddress() {
 		return address;
 	}
 
-
 	public void setAddress(Address address) {
 		this.address = address;
 	}
-	
-	
-	
-	
 
-	
-	
 	public DEPARTMENT getDept() {
 		return dept;
 	}
+
 	public void setDept(DEPARTMENT dept) {
 		this.dept = dept;
 	}
 
-	
-
-
-
-
-
-	public int getEmployeeID() {
-		return employeeID;
-	}
-	public void setEmployeeID(int employeeID) {
-		this.employeeID = employeeID;
+	// Then combine the pieces to make a date.
+	// This will define the date that work started.
+	// date you startd employment.
+	public String getDateStartWork() {
+		return dateStartWork;
 	}
 
-
+	public void setDateStartWork(String dateStartWork) {
+		this.dateStartWork = dateStartWork;
+	}
 
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
+	public int getEmployeeID() {
+		return employeeID;
+	}
 
+	public void setEmployeeID(int employeeID) {
+		this.employeeID = employeeID;
+	}
 
 	public JOBTITLE getJobTitle() {
 		return jobTitle;
 	}
+
 	public void setJobTitle(JOBTITLE jobTitle) {
 		this.jobTitle = jobTitle;
 	}
 
-    
-
-    public int getSsn() {
+	public int getSsn() {
 		return ssn;
 	}
+
 	public void setSsn(int ssn) {
 		this.ssn = ssn;
 	}
 
-
-
 	public double getSalary() {
 		return salary;
 	}
+
 	public void setSalary(double salary) {
 		this.salary = salary;
 	}
-
-
 
 }

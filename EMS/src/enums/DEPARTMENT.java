@@ -1,7 +1,5 @@
 package enums;
 
 public enum DEPARTMENT {
-	    IT, 
-	    MARKETING, 
-	    HR;
+	IT, MARKETING, HR;
 }
