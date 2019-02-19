@@ -29,7 +29,7 @@ public class Create {
 		Employee employee = new Employee();
 
 		System.out.println("What's your employee ID? Have some range limitations later.");
-		int employeeID = Helpers.validateInt(scanner);
+		int employeeID = scanner.nextInt();
 		employee.setEmployeeID(employeeID);
 
 		System.out.println("Everyone's email will end with @Collabera.com. But you can choose what goes before the @.");

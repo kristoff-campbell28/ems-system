@@ -17,7 +17,21 @@ public class Manager extends Employee {
 
 	@Override
 	public String toString() {
-		return "Manager [team=" + team + "]";
+			return "Below are the details of employee with ID " + employeeID + " : \n" 
+					+ "Date of birth is: " + dateOfBirth
+					+ "\n" + "Department they inhabit is: " + dept + "\n" 
+					+ "Email is: " + email + "@Collabera.com \n"
+					+ "Their job title is: " + jobTitle + "\n" 
+					+ "Social Security Number is: "
+					+ Integer.toString(ssn).substring(0, 3) + "-" + Integer.toString(ssn).substring(3, 5) + "-"
+					+ Integer.toString(ssn).substring(5, 9) + "\n" + "Salary is: " + salary + "\n" 
+					+ "Full name is: " + fullName + "\n" 
+					+ "Phone Number is: " + Long.toString(phoneNumber).substring(0, 3) + "-" + Long.toString(phoneNumber).substring(3, 6) + "-"
+					+ Long.toString(phoneNumber).substring(6, 10) + "\n" 
+					+ "Their gender is " + gender + "\n"
+					+ "Date they joined the company is: " + dateStartWork + "\n" 
+					+ "Their address is: \n" + address.getStreetNumber() + " " + address.getStreetName() + "\n" + address.getCity() + ", "
+					+ address.getState() + " " + address.getZipCode() + "\n";
 	}
 
 	public Manager(GENDER gender, int age, long phoneNumber, String dateOfBirth, String fullName, Address address,

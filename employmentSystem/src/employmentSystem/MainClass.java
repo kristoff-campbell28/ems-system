@@ -1,24 +1,20 @@
 package employmentSystem;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.InputMismatchException;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Scanner;
 
 import functions.*;
 
 public class MainClass {
 
+	public static String defaultExp = "[a-zA-Z0-9\\s]+";
+	public static String noSpaceExp = "[a-zA-Z]+$";
+	public static String emailExp = "[a-z0-9]+@[a-z0-9]+\\.[a-z0-9]+";
+	public static String stateExp = "[a-zA-Z]{2}";
+	public static String fileName = "content.txt";
+	
 	public static Scanner scanner = new Scanner(System.in);
 	public static LinkedHashMap<Integer, Employee> empHash = new LinkedHashMap<Integer, Employee>();
 	public static int[] keyValues = new int[500];
@@ -47,80 +43,55 @@ public class MainClass {
 		 */
 
 		// Live in US?
-		boolean usLiving = true;
+		// boolean usLiving = true;
 		// Program over?
 		boolean endProgram = true;
 		// Do another program?
 		boolean contForward = true;
 
-		System.out.println("The system is only equipped to hold 500 people, as that is the current");
-		System.out.println("maximum number of employees that Collabera can hire.");
-		System.out.println("We will update the system as max employee count increases. \n \n \n");
-
-		while (usLiving) {
-			System.out.println("Do you live in the US? Press 1 for yes, 2 for no, 3 to quit.");
-			int choice = Helpers.validateInt(scanner);
-
-			if (choice == 1) {
-				System.out.println("Great to hear. \n");
-				usLiving = false;
-			} else if (choice == 2) {
-				System.out.println("Sorry, but this system only works for US addresses.");
-			} else if (choice == 3) {
-				System.out.println("Thank you for using the EMS.");
-				System.exit(0);
-			} else {
-				System.out.println("That's not one of the choices.");
-			}
-		}
+		/*
+		 * while (usLiving) { System.out.
+		 * println("Do you live in the US? Press 1 for yes, 2 for no, 3 to quit."); int
+		 * choice = Helpers.validateInt(scanner);
+		 * 
+		 * if (choice == 1) { System.out.println("Great to hear. \n"); usLiving = false;
+		 * } else if (choice == 2) {
+		 * System.out.println("Sorry, but this system only works for US addresses."); }
+		 * else if (choice == 3) { System.out.println("Thank you for using the EMS.");
+		 * System.exit(0); } else {
+		 * System.out.println("That's not one of the choices."); } }
+		 */
 
 		while (endProgram) {
-
 			contForward = true;
-
 			File file = new File("content.txt");
-
 			if (file.exists()) {
-				empHash = (LinkedHashMap<Integer, Employee>) Helpers.deserializeObject("content.txt");
-				System.out.println("This is the current form of the employee HashMap:");
-
-				if (empHash.isEmpty()) {
-					System.out.println("Currently, the hashmap is empty.");
-				} else {
-					System.out.println(empHash);
-				}
+				empHash = (LinkedHashMap<Integer, Employee>) Helpers.deserializeObject(fileName);
+				/*
+				 * System.out.println("This is the current form of the employee HashMap:");
+				 * 
+				 * if (empHash.isEmpty()) {
+				 * System.out.println("Currently, the hashmap is empty."); } else {
+				 * System.out.println(empHash); }
+				 */
 			}
-
-			System.out.println();
-			System.out.println();
-
 			// scanner = new Scanner(System.in);
 
 			System.out.println("-----------------------------------------------------------");
-
 			System.out.println("WELCOME TO COLLABERA");
-
 			System.out.println("-----------------------------------------------------------");
-
 			System.out.println("Please Enjoy Our Employee Management System");
-
 			System.out.println("-----------------------------------------------------------");
-
 			System.out.println("[1]Create an Employee");
-
 			System.out.println("[2]Retrieve Employee(s)");
-
 			System.out.println("[3]Update an Employee");
-
 			System.out.println("[4]Delete an Employee");
 
-			int choice = scanner.nextInt();
-			scanner.nextLine();
+			int choice = Helpers.validateInt(scanner);
 
 			if (choice == 1) {
 				System.out.println("[1] Create");
 				Create.create();
-
 			}
 
 			else if (choice == 2) {
@@ -147,7 +118,6 @@ public class MainClass {
 					System.out.println("Guess you're deleting.");
 					Delete.delete();
 					System.out.println("Current number of employees in the system is " + empHash.size());
-
 				}
 
 			} else {
@@ -164,7 +134,7 @@ public class MainClass {
 					System.out.println("Thank you for using this program.");
 					contForward = false;
 					endProgram = false;
-					Helpers.serializeObject(empHash, "");
+					Helpers.serializeObject(empHash, fileName);
 				} else if (contTask == 1) {
 					System.out.println("Then please select your next option.");
 					contForward = false;

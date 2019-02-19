@@ -1,7 +1,7 @@
 package functions;
 
-import java.util.HashMap;
-import java.util.InputMismatchException;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 import employmentSystem.Address;
@@ -10,19 +10,21 @@ import employmentSystem.MainClass;
 import enums.DEPARTMENT;
 import enums.GENDER;
 import enums.JOBTITLE;
+import enums.MONTHS;
 import enums.USSTATES;
 
 public class Update {
 
-	public static void updater() {
+	public static void updater() throws FileNotFoundException, IOException {
 
 		/*
 		 * FIND THE PROBLEMS!!!! This includes email.
 		 */
 
+		boolean loop = true;
 		Scanner scanner = MainClass.scanner;
 		Address address = new Address();
-		USSTATES u3;
+		USSTATES u3 = null;
 
 		System.out.println("Your choices are as follows: ");
 
@@ -30,186 +32,242 @@ public class Update {
 			System.out.println(key);
 		}
 
-		try {
+		System.out.println("Please enter the ID of the employee you wish to change some aspect of.");
 
-			System.out.println("Please enter the ID of the employee you wish to change some aspect of.");
+		int employeeID = Helpers.validateInt(scanner);
 
-			int employeeID = scanner.nextInt();
-			scanner.nextLine();
+		boolean options = true;
 
-			boolean options = true;
+		while (options) {
+			if (MainClass.empHash.containsKey(employeeID)) {
+				Employee employee = MainClass.empHash.get(employeeID);
 
-			while (options) {
-				if (MainClass.empHash.containsKey(employeeID)) {
-					Employee employee = MainClass.empHash.get(employeeID);
+				System.out.println("Here are all the details of the employee with ID " + employeeID + ": ");
+				System.out.println(employee);
+				System.out.println("What detail would you like to modify?");
+				System.out.println("Please note that, due to safety reasons, "
+												  + "we only allow one item to be modified at a time.");
+				System.out.println("Press 0 for changing the employee ID.");
+				System.out.println("Press 1 for changing the date of birth.");
+				System.out.println("Press 2 for changing the department worked in.");
+				System.out.println("Press 3 for changing the email.");
+				System.out.println("Press 4 for changing the job title.");
+				System.out.println("Press 5 for changing the social security number.");
+				System.out.println("Press 6 for changing the salary.");
+				System.out.println("Press 7 for changing the full name.");
+				System.out.println("Press 8 for changing the phone number.");
+				System.out.println("Press 9 for changing all details in their address.");
+				System.out.println("Press 10 for changing the gender.");
+				int change = Helpers.validateInt(scanner);
 
-					System.out.println("Here are all the details of the employee with ID " + employeeID + ": ");
-					System.out.println(employee);
-					System.out.println("What detail would you like to modify?");
-					System.out.println("Please note that, due to safety reasons, "
-							+ "we only allow one item to be modified at a time.");
+				MONTHS m3 = null;
+				switch (change) {
+				case 0:
+					System.out.println("This is the old employee ID: ");
+					System.out.println(employee.getEmployeeID());
+					System.out.println("Enter the new employee ID.");
+					int newID = Helpers.validateInt(scanner);
+					employee.setEmployeeID(newID);
+					System.out.println("The employee ID has been changed to " + employee.getEmployeeID());
+					break;
+				case 1:
+					System.out.println("This is the old date of birth: ");
+					System.out.println(employee.getDateOfBirth());
+					System.out.println("Enter the new date of birth.");
+					System.out.println("Print month of birth. One word.");
+					System.out.println("Print 1 for January, 2 for February, 3 for March, etc.");
+					loop = true;
+					while (loop) {
+						int birthMonth = Helpers.validateInt(scanner);
+						switch (birthMonth) {
+						case 1:
+							m3 = MONTHS.JANUARY;
+							loop = false;
+							break;
+						case 2:
+							m3 = MONTHS.FEBRUARY;
+							loop = false;
+							break;
+						case 3:
+							m3 = MONTHS.MARCH;
+							loop = false;
+							break;
+						case 4:
+							m3 = MONTHS.APRIL;
+							loop = false;
+							break;
+						case 5:
+							m3 = MONTHS.MAY;
+							loop = false;
+							break;
+						case 6:
+							m3 = MONTHS.JUNE;
+							loop = false;
+							break;
+						case 7:
+							m3 = MONTHS.JULY;
+							loop = false;
+							break;
+						case 8:
+							m3 = MONTHS.AUGUST;
+							loop = false;
+							break;
+						case 9:
+							m3 = MONTHS.SEPTEMBER;
+							loop = false;
+							break;
+						case 10:
+							m3 = MONTHS.OCTOBER;
+							loop = false;
+							break;
+						case 11:
+							m3 = MONTHS.NOVEMBER;
+							loop = false;
+							break;
+						case 12:
+							m3 = MONTHS.DECEMBER;
+							loop = false;
+							break;
+						default:
+							System.out.println("You did not pick an option listed.");
+						}
+					}
 
-					// System.out.println("Press 0 for changing the employee ID.");
-					// System.out.println("Press 1 for changing the date of birth.");
-					System.out.println("Press 2 for changing the department worked in.");
-					System.out.println("Press 3 for changing the email.");
-					System.out.println("Press 4 for changing the job title.");
-					System.out.println("Press 5 for changing the social security number.");
-					System.out.println("Press 6 for changing the salary.");
-					System.out.println("Press 7 for changing the full name.");
-					System.out.println("Press 8 for changing the phone number.");
-					System.out.println("Press 9 for changing all details in their address.");
-					System.out.println("Press 10 for changing the gender.");
-					System.out.println("Press 11 for changing the age.");
-					int change = scanner.nextInt();
-					scanner.nextLine();
+					System.out.println("Print day of " + m3.toString() + " you were born on.");
+					int birthDay = Helpers.validateInt(scanner);
+					// Check for day being less than 31.
+					// Consider checking for September 31 if we have time.
 
-					switch (change) {
-//						case 0:
-//							System.out.println("This is the old employee ID: ");
-//							System.out.println(employee.getEmployeeID());
-//							System.out.println("Enter the new employee ID.");
-//							int newID = scanner.nextInt();
-//							scanner.nextLine();
-//							employee.setEmployeeID(newID);
-//							System.out.println("The employee ID has been changed to " + employee.getEmployeeID());
-//							break;
-//						case 1:
-//							System.out.println("This is the old date of birth: ");
-//							System.out.println(employee.getDateOfBirth());
-//							System.out.println("Enter the new date of birth.");
-//							String newBirth = scanner.nextLine();
-//							employee.setDateOfBirth(newBirth);
-//							System.out.println("The date of birth has been changed to " + employee.getDateOfBirth());
-//							break;
-					case 2:
-						System.out.println("This is the old department worked in: ");
-						System.out.println(employee.getDept());
-						System.out.println("Enter the new department.");
-						System.out.println("Options: 1 for IT, 2 for Marketing, 3 for HR.");
+					System.out.println("Print year of birth.");
+					int birthYear = Helpers.validateLength(scanner, 4);
+					// Check that this is 4 digits long exactly.
+
+					// Make the whole birthday.
+					String birthDate = m3.toString().toLowerCase() + " " + birthDay + ", " + birthYear;
+					employee.setDateOfBirth(birthDate);
+				case 2:
+					System.out.println("This is the old department worked in: ");
+					System.out.println(employee.getDept());
+					System.out.println("Enter the new department.");
+					System.out.println("Options: 1 for IT, 2 for Marketing, 3 for HR.");
+					DEPARTMENT d3 = null;
+					loop = true;
+					while (loop) {
 						int newDept = Helpers.validateInt(scanner);
-						DEPARTMENT d3;
 						if (newDept == 1) {
 							d3 = DEPARTMENT.IT;
+							loop = false;
 						} else if (newDept == 2) {
 							d3 = DEPARTMENT.MARKETING;
+							loop = false;
 						} else if (newDept == 3) {
 							d3 = DEPARTMENT.HR;
+							loop = false;
 						} else {
 							System.out.println("This isn't a choice. Try again");
-							d3 = DEPARTMENT.IT;
 							// Find an actual way to loop here.
 						}
-						employee.setDept(d3);
-						System.out.println("The department worked in has been changed to " + employee.getDept());
-						break;
-					case 3:
-						System.out.println("This is the old email: ");
-						System.out.println(employee.getEmail() + "@Collabera.com");
-						System.out.println("Enter the new email.");
-						String newEmail = scanner.nextLine();
-						employee.setEmail(newEmail);
-						System.out.println("The email has been changed to " + employee.getEmail() + "@Collabera.com");
-						break;
-					case 4:
-
-						System.out.println("This is the old job title: ");
-						System.out.println(employee.getJobTitle());
-						System.out.println("Enter the new job title.");
-						System.out.println("Press 1 for Booker, 2 for Salaryman, 3 for Dog.");
-						int jobTitle = scanner.nextInt();
-						scanner.nextLine();
-
-						JOBTITLE j3;
+					}
+					employee.setDept(d3);
+					System.out.println("The department worked in has been changed to " + employee.getDept());
+					break;
+				case 3:
+					System.out.println("This is the old email: ");
+					System.out.println(employee.getEmail() + "@Collabera.com");
+					System.out.println("Enter the new email.");
+					String newEmail = Helpers.validateExp(scanner, MainClass.emailExp);
+					employee.setEmail(newEmail);
+					System.out.println("The email has been changed to " + employee.getEmail() + "@Collabera.com");
+					break;
+				case 4:
+					System.out.println("This is the old job title: ");
+					System.out.println(employee.getJobTitle());
+					System.out.println("Enter the new job title.");
+					System.out.println("Press 1 for Secretary, 2 for Manager, 3 for Sales.");
+					JOBTITLE j3 = null;
+					while (options) {
+						int jobTitle = Helpers.validateInt(scanner);
 						if (jobTitle == 1) {
-							j3 = JOBTITLE.BOOKER;
+							j3 = JOBTITLE.SECRETARY;
 						} else if (jobTitle == 2) {
-							j3 = JOBTITLE.SALARYMAN;
+							j3 = JOBTITLE.ACCOUNTANT;
 						} else if (jobTitle == 3) {
-							j3 = JOBTITLE.DOG;
+							j3 = JOBTITLE.SALES;
 						} else {
 							System.out.println("Print an actual option.");
-							System.out.println("");
-							j3 = JOBTITLE.DOG;
 							// Find an actual way to loop here.
 						}
+					}
+					employee.setJobTitle(j3);
+					System.out.println("The job has been changed to " + employee.getJobTitle());
+					break;
+				case 5:
+					System.out.println("This is the old social security number: ");
 
-						employee.setJobTitle(j3);
-						System.out.println("The job has been changed to " + employee.getJobTitle());
-						break;
-					case 5:
-						System.out.println("This is the old social security number: ");
-
-						String ssnOld = Integer.toString(employee.getSsn());
-						System.out.println(
-								ssnOld.substring(0, 3) + "-" + ssnOld.substring(3, 5) + "-" + ssnOld.substring(5, 8));
-						System.out.println("Enter the new social security number.");
-						int newSsn = scanner.nextInt();
-						employee.setSsn(newSsn);
-						String newSsnString = Integer.toString(newSsn);
-						System.out.println("The social security number has been changed to ");
-						System.out.println(newSsnString.substring(0, 3) + "-" + newSsnString.substring(3, 5) + "-"
-								+ newSsnString.substring(5, 8));
-						break;
-					case 6:
-
-						// FIX THIS!!!!
-						System.out.println("This is the old salary: ");
-						System.out.print("$");
-						System.out.printf("%.2f", employee.getSalary());
-						System.out.println();
-						System.out.println("Enter the new salary.");
-						double newSalary = scanner.nextInt();
-						scanner.nextLine();
-						employee.setSalary(newSalary);
-						System.out.println("The salary has been changed to: ");
-						System.out.print("$");
-						System.out.printf("%.2f", employee.getSalary());
-						System.out.println();
-						break;
-					case 7:
-						System.out.println("This is the old full name: ");
-						System.out.println(employee.getFullName());
-						System.out.println("Enter the new first name.");
-						String newFirst = scanner.next();
-						System.out.println("Enter the new last name.");
-						String newLast = scanner.next();
-						String newFullName = newFirst.toUpperCase() + " " + newLast.toUpperCase();
-						employee.setFullName(newFullName);
-						System.out.println("The employee ID has been changed to " + employee.getFullName());
-						break;
-					case 8:
-						System.out.println("This is the old phone number: ");
-						long phoneNumber = employee.getPhoneNumber();
-						System.out.println(Double.toString(phoneNumber).substring(0, 3) + "-"
-								+ Double.toString(phoneNumber).substring(3, 6) + "-"
-								+ Double.toString(phoneNumber).substring(6, 9));
-						System.out.println("Enter the new phone number.");
-						long newPhone = scanner.nextLong();
-						scanner.nextLine();
-						employee.setPhoneNumber(newPhone);
-						System.out.println("The phone number has been changed to ");
-						System.out.println(
-								Long.toString(newPhone).substring(0, 3) + "-" + Long.toString(newPhone).substring(3, 6)
-										+ "-" + Long.toString(newPhone).substring(6, 9));
-						break;
-					case 9:
-						System.out.println("This is the old address: ");
-						System.out.println(employee.getAddress().toString());
-
-						System.out.println("Enter the new address by following the steps below:");
-						System.out.println("Enter the street number.");
-						int newStreetNumber = scanner.nextInt();
-						scanner.nextLine();
-						System.out.println("Enter the street name.");
-						String newStreetName = scanner.nextLine();
-						System.out.println("Enter the city name.");
-						String newCityName = scanner.nextLine();
-						System.out.println("Enter the new state. Still 2 letters.");
-						String newState = scanner.next();
-						String capState = newState.toUpperCase();
-						switch (capState) {
-
+					String ssnOld = Integer.toString(employee.getSsn());
+					System.out.println(
+							ssnOld.substring(0, 3) + "-" + ssnOld.substring(3, 5) + "-" + ssnOld.substring(5, 9));
+					System.out.println("Enter the new social security number.");
+					int newSsn = Helpers.validateLength(scanner, 9);
+					employee.setSsn(newSsn);
+					String newSsnString = Integer.toString(newSsn);
+					System.out.println("The social security number has been changed to ");
+					System.out.println(newSsnString.substring(0, 3) + "-" + newSsnString.substring(3, 5) + "-"
+							+ newSsnString.substring(5, 9));
+					break;
+				case 6:
+					// FIX THIS!!!!
+					System.out.println("This is the old salary: ");
+					System.out.print("$");
+					System.out.printf("%.2f", employee.getSalary());
+					System.out.println();
+					System.out.println("Enter the new salary.");
+					double newSalary = Helpers.validateInt(scanner);
+					employee.setSalary(newSalary);
+					System.out.print("The salary has been changed to: $");
+					System.out.printf("%.2f", employee.getSalary());
+					System.out.println();
+					break;
+				case 7:
+					System.out.println("This is the old full name: ");
+					System.out.println(employee.getFullName());
+					System.out.println("Enter the new first name.");
+					String newFirst =Helpers.validateExp(scanner, MainClass.defaultExp);
+					System.out.println("Enter the new last name.");
+					String newLast = Helpers.validateExp(scanner, MainClass.defaultExp);
+					String newFullName = newFirst.toUpperCase() + " " + newLast.toUpperCase();
+					employee.setFullName(newFullName);
+					System.out.println("The employee's name has been changed to " + employee.getFullName());
+					break;
+				case 8:
+					System.out.println("This is the old phone number: ");
+					double phoneNumber = employee.getPhoneNumber();
+					String phoneString = String.format("%.0f\n", phoneNumber);
+					System.out.println(phoneString.substring(0, 3) + "-"
+							+phoneString.substring(3, 6) + "-"
+							+ phoneString.substring(6, 10));
+					System.out.println("Enter the new phone number.");
+					long newPhone = Helpers.validateLongLength(scanner, 10);
+					employee.setPhoneNumber(newPhone);
+					System.out.println("The phone number has been changed to ");
+					System.out.println(Long.toString(newPhone).substring(0, 3) + "-"
+							+ Long.toString(newPhone).substring(3, 6) + "-" + Long.toString(newPhone).substring(6, 10));
+					break;
+				case 9:
+					System.out.println("This is the old address: ");
+					System.out.println(employee.getAddress().toString());
+					System.out.println("Enter the new address by following the steps below:");
+					System.out.println("Enter the street number.");
+					int newStreetNumber = Helpers.validateInt(scanner);
+					System.out.println("Enter the street name.");
+					String newStreetName = Helpers.validateSentence(scanner, MainClass.defaultExp);
+					System.out.println("Enter the city name.");
+					String newCityName = Helpers.validateSentence(scanner, MainClass.defaultExp);
+					System.out.println("Enter the new state. Still 2 letters.");
+					loop = true;
+					while (loop) {
+						String newState = Helpers.validateExp(scanner, MainClass.stateExp);
+						switch (newState) {
 						case "AL":
 							u3 = USSTATES.AL;
 							break;
@@ -387,90 +445,61 @@ public class Update {
 						case "WY":
 							u3 = USSTATES.WY;
 							break;
-
 						default:
 							System.out.println("You have not selected a valid input.");
-							System.out.println("Thus, we must assume that you live in New Jersey,");
-							System.out.println("the place where this Collabera office is located.");
-							u3 = USSTATES.NJ;
-							// Later fix this to go through the switch statement again.
-							break;
-
 						}
-						System.out.println("Enter the new zip code.");
-						int newZip = scanner.nextInt();
-						scanner.nextLine();
+					}
+					System.out.println("Enter the new zip code.");
+					int newZip = Helpers.validateLength(scanner, 5);
 
-						address.setStreetNumber(newStreetNumber);
-						address.setStreetName(newStreetName);
-						address.setCity(newCityName);
-						address.setState(u3);
-						address.setZipCode(newZip);
+					address.setStreetNumber(newStreetNumber);
+					address.setStreetName(newStreetName);
+					address.setCity(newCityName);
+					address.setState(u3);
+					address.setZipCode(newZip);
 
-						employee.setAddress(address);
+					employee.setAddress(address);
 
-						System.out.println("The address has been changed to: ");
-						System.out.println(employee.getAddress().toString());
-						break;
+					System.out.println("The address has been changed to: ");
+					System.out.println(employee.getAddress().toString());
+					break;
 
-					case 10:
-						GENDER g3;
-						System.out.println("This is the old gender: ");
-						System.out.println(employee.getGender());
-						System.out.println("Enter the new gender.");
+				case 10:
+					GENDER g3 = null;
+					System.out.println("This is the old gender: ");
+					System.out.println(employee.getGender());
+					System.out.println("Enter the new gender.");
+					loop = true;
+					while (loop) {
 						System.out.println("1 for male, 2 for female, 3 for other.");
-						int newGender = scanner.nextInt();
-						scanner.nextLine();
+						int newGender = Helpers.validateInt(scanner);
 						if (newGender == 1) {
 							g3 = GENDER.MALE;
+							loop = false;
 						} else if (newGender == 2) {
 							g3 = GENDER.FEMALE;
+							loop = false;
 						} else if (newGender == 3) {
 							g3 = GENDER.OTHER;
+							loop = false;
 						} else {
 							System.out.println("You did not pick a gender.");
-							System.out.println("We will assume that you identify as 'other'.");
-							g3 = GENDER.OTHER;
 							// Find an actual way to loop here.
 						}
-
-						employee.setGender(g3);
-						System.out.println("The gender has been changed to " + g3 + ". ");
-						break;
-					case 11:
-						System.out.println("This is the old age: ");
-						System.out.println(employee.getAge());
-						System.out.println("Enter the new age.");
-						int newAge = scanner.nextInt();
-						scanner.nextLine();
-						employee.setAge(newAge);
-						System.out.println("The age has been changed to " + employee.getAge() + ". ");
-						break;
-
-					default:
-						System.out.println("Please print an actual option.");
-						updater();
-						break;
 					}
-
-					options = false;
-
-				} else {
-					System.out.println("Negative. Please enter a valid ID.");
+					employee.setGender(g3);
+					System.out.println("The gender has been changed to " + g3 + ". ");
+					break;
+				default:
+					System.out.println("Please print an actual option.");
 					updater();
+					break;
 				}
+				options = false;
+			} else {
+				System.out.println("Negative. Please enter a valid ID.");
 			}
-
-		} catch (InputMismatchException e) {
-
-			System.out.println("Enter a Number Value");
-
-			scanner.nextLine();
-
-			updater();
-
 		}
-
+		Helpers.serializeObject(MainClass.empHash, MainClass.fileName);
 	}
-
 }

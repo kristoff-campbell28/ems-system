@@ -2,11 +2,9 @@ package functions;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import employmentSystem.Employee;
 import employmentSystem.MainClass;
 
 public class Delete {
