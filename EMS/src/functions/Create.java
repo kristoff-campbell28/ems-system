@@ -40,19 +40,19 @@ public class Create {
 		employee.setEmail(email);
 
 		System.out.println("What's your job title?");
-		System.out.println("Press 1 for Booker, 2 for Salaryman, 3 for Dog.");
+		System.out.println("Press 1 for Secretary, 2 for Executive Assistant , 3 for Project Manager.");
 		int jobTitle = scanner.nextInt();
 		scanner.nextLine();
 
 		if (jobTitle == 1) {
-			j3 = JOBTITLE.BOOKER;
+			j3 = JOBTITLE.SECRETARY;
 		} else if (jobTitle == 2) {
-			j3 = JOBTITLE.SALARYMAN;
+			j3 = JOBTITLE.EXECUTIVE_ASSISTANT;
 		} else if (jobTitle == 3) {
-			j3 = JOBTITLE.DOG;
+			j3 = JOBTITLE.PROJECT_MANAGER;
 		} else {
 			System.out.println("Print an actual option.");
-			j3 = JOBTITLE.DOG;
+			j3 = JOBTITLE.PROJECT_MANAGER;
 			// Find an actual way to loop here.
 		}
 

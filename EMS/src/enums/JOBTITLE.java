@@ -2,6 +2,6 @@ package enums;
 
 public enum JOBTITLE {
 
-	BOOKER, SALARYMAN, DOG;
+	SECRETARY, EXECUTIVE_ASSISTANT, PROJECT_MANAGER; 
 	
 }
