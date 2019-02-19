@@ -19,6 +19,7 @@ public class Update {
 		
 		/*
 		 * FIND THE PROBLEMS!!!!
+		 * This includes email. 
 		 */
 		
 		

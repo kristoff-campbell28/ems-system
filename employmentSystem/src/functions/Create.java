@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.LinkedHashMap;
 import java.util.Scanner;
 
@@ -40,61 +41,128 @@ public class Create {
 		
 		
 		
-		//Asks for every variable.
-		System.out.println("What's your employee ID? Have some range limitations later.");
-		int employeeID = scanner.nextInt();
-		scanner.nextLine();
-		employee.setEmployeeID(employeeID);
+		try {
+			System.out.println("Enter an Employee ID: ");		
+			int employeeID = scanner.nextInt();
+			scanner.nextLine();
+			employee.setEmployeeID(employeeID);
+			
+		} catch(InputMismatchException e) {
+
+			
+
+			System.out.println("ID must be 5 numbers XXXXX");
+
+			scanner.nextLine();
+
+			create();
+
+			
+
+			
+
+		}
+		
 				
-				
-		System.out.println("Everyone's email will end with @Collabera.com. But you can choose what goes before the @.");
-		System.out.println("Please type the alphanumeric combination you'd like before the @.");
-		System.out.println("NO SPACES!");
-		//Run a check to ensure that there's no spaces.
-		String email = scanner.next();
-		employee.setEmail(email);
+		try {
+			
+			System.out.println("Enter an Email ID. It will be followed with @Collabera.com.");
+			//Run a check to ensure that there's no spaces.
+			String email = scanner.nextLine();
+			employee.setEmail(email);
+			
+		} catch (InputMismatchException e) {
+			System.out.println("One word. No spaces.");
+			System.out.println("You must start over.");
+			create();
+		}
+		
+		try {
+			
+			System.out.println("Enter a Job Title: ");
+			System.out.println("Press 1 for Booker, 2 for Salaryman, 3 for Dog.");
+			int jobTitle = scanner.nextInt();
+			scanner.nextLine();
+			
+			if (jobTitle == 1) {
+				j3 = JOBTITLE.BOOKER;
+			}
+			else if (jobTitle == 2) {
+				j3 = JOBTITLE.SALARYMAN;
+			}
+			else if (jobTitle == 3) {
+				j3 = JOBTITLE.DOG;
+			}
+			else {
+				System.out.println("Print an actual option.");
+				System.out.println("You are assigned the default job 'dog'.");
+				j3 = JOBTITLE.DOG;
+			}
+			
+			employee.setJobTitle(j3);
+			
+		} catch (InputMismatchException e) {
+			System.out.println("Please print an actual number.");
+			System.out.println("Start over.");
+			create();
+		} 
 				
 			
-		System.out.println("What's your job title?");
-		System.out.println("Press 1 for Booker, 2 for Salaryman, 3 for Dog.");
-		int jobTitle = scanner.nextInt();
-		scanner.nextLine();
+		try {
+			System.out.println("What's your social security number? No hyphens, just a 9 digit number.");
+			int ssn = scanner.nextInt();
+			scanner.nextLine();
+			employee.setSsn(ssn);
+			
+		} catch (InputMismatchException e) {
+
+			System.out.println("Please enter a 9 digit number: ");
+			scanner.nextLine();
+			create();
+
+		}
+				
+				
+		try {
+			
+			System.out.println("What's your salary?");
+			double salary = scanner.nextDouble();
+			scanner.nextLine();
+			employee.setSalary(salary);
+			
+			
+		} catch (InputMismatchException e) {
+
+			System.out.println("Please enter an actual number: ");
+
+			scanner.nextLine();
+
+			create();
+
+		}
+				
+				
+		try {
+			
+			System.out.println("What is your street number?");
+			int streetNumber = scanner.nextInt();
+			scanner.nextLine();
+			address.setStreetNumber(streetNumber);
+			
+		} catch (InputMismatchException e) {
+
+			System.out.println("Please enter an actual number: ");
+			System.out.println("Start over.");
+
+			scanner.nextLine();
+
+			create();
+
+		}
+				
+				
 		
-		if (jobTitle == 1) {
-			j3 = JOBTITLE.BOOKER;
-		}
-		else if (jobTitle == 2) {
-			j3 = JOBTITLE.SALARYMAN;
-		}
-		else if (jobTitle == 3) {
-			j3 = JOBTITLE.DOG;
-		}
-		else {
-			System.out.println("Print an actual option.");
-			j3 = JOBTITLE.DOG;
-			//Find an actual way to loop here.
-		}
 		
-		employee.setJobTitle(j3);
-				
-				
-		System.out.println("What's your social security number? No hyphens, just a 9 digit number.");
-		int ssn = scanner.nextInt();
-		scanner.nextLine();
-		employee.setSsn(ssn);
-				
-				
-		System.out.println("What's your salary?");
-		double salary = scanner.nextDouble();
-		scanner.nextLine();
-		employee.setSalary(salary);
-				
-				
-		
-		System.out.println("What is your street number?");
-		int streetNumber = scanner.nextInt();
-		scanner.nextLine();
-		address.setStreetNumber(streetNumber);
 				
 		System.out.println("What is your street name?");
 		String streetName = scanner.nextLine();
@@ -105,7 +173,7 @@ public class Create {
 		address.setCity(city);
 				
 		System.out.println("What is your state? Print the two letter abbreviation");
-		String state = scanner.next();
+		String state = scanner.nextLine();
 		String capState = state.toUpperCase();
 		switch(capState) {
 		
@@ -288,51 +356,85 @@ public class Create {
 				break;
 			
 			default:
-				System.out.println("Please print a real state.");
-				//Do this loop over again.
-				u3 = USSTATES.MI;
+				System.out.println("You have failed to print a state.");
+				System.out.println("You will be assigned the default value of New Jersey, ");
+				System.out.println("where Collabera is located.");
+				u3 = USSTATES.NJ;
 		}
 		address.setState(u3);
+		
+		try {
+			
+			System.out.println("What is your zip code?");
+			int zipCode = scanner.nextInt();
+			scanner.nextLine();
+			address.setZipCode(zipCode);
+					
+			
+		} catch(InputMismatchException e) {
+
+			System.out.println("Please enter a number in the format: XXXXX ");
+
+			scanner.nextLine();
+
+			create();
+
+		}
 				
-		System.out.println("What is your zip code?");
-		int zipCode = scanner.nextInt();
-		scanner.nextLine();
-		address.setZipCode(zipCode);
-				
+		
 				
 				
 				
 		
 		System.out.println("Enter first name.");
-		String firstName = scanner.next();
-				//Do some kind of check to ensure that this is one word.	
-				//Then, create a new string where the first letter alone is capitalized. 				
-		
+		String firstName = scanner.nextLine();
 						
 		System.out.println("Enter last name: ");
-		String lastName = scanner.next();
-			//Do some kind of check to ensure that this is one word.
-				//Then, create a new string where the first letter alone is capitalized. 
+		String lastName = scanner.nextLine();
 		
 		String fullName = firstName.toUpperCase() + " " + lastName.toUpperCase();
 		employee.setFullName(fullName);
 						
-				//Get age.
-		System.out.println("Enter age: ");
-		int age = scanner.nextInt();
-		scanner.nextLine();
-		employee.setAge(age);
-						
-						
-				//Get phone number
-		System.out.println("Enter phone number without hyphens.");
-		long phoneNumber = scanner.nextLong();
-		scanner.nextLine();
-		employee.setPhoneNumber(phoneNumber);
-						
-				//Get the gender.
+		try {
+			
+			System.out.println("Enter age: ");
+			int age = scanner.nextInt();
+			scanner.nextLine();
+			employee.setAge(age);
+			
+		} catch(InputMismatchException e) {
+
+			
+
+			System.out.println("Please enter a real number: ");
+
+			scanner.nextLine();
+
+			create();
+		}
+		
+		
+		try {
+			
+			System.out.println("Enter phone number without hyphens.");
+			long phoneNumber = scanner.nextLong();
+			scanner.nextLine();
+			employee.setPhoneNumber(phoneNumber);
+			
+		} catch(InputMismatchException e) {
+
+			
+
+			System.out.println("Please enter a real number of 10 digits. ");
+			System.out.println("Start over.");
+			scanner.nextLine();
+			create();
+
+		}
+		
+
 		System.out.println("Enter gender. Type m for male, f for female, o for other");
-		String gender = scanner.next();
+		String gender = scanner.nextLine();
 		if (gender.equals("m")) {
 			g3 = GENDER.MALE;
 		}
@@ -343,95 +445,106 @@ public class Create {
 			g3 = GENDER.OTHER;
 		}
 		else {
-			System.out.println("Print a gender, meanhead.");
+			System.out.println("You did not specify. Your gender will be labeled as other.");
 			g3 = GENDER.OTHER;
-			//Find an actual way to loop here.
 		}
 		employee.setGender(g3);
+		
+		//FIND ME FIND ME FIND ME!!!! AND WRITE DOWN EXCEPTIONS PROPERLY!!!!!
 						
 		System.out.println("Setting up today as the day " + fullName + " starts work.");
 		String pattern = "yyyy-MM-dd";
 		SimpleDateFormat sdf = new SimpleDateFormat(pattern);
 		String date = sdf.format(new Date());
 		employee.setDateStartWork(date);
-				
-				
 		
 		
 		
-		//Enum later? Probably. List choices.
 		System.out.println("Print month of birth. One word.");
 		System.out.println("Print 1 for January, 2 for February, 3 for March, etc.");
 		int birthMonth = scanner.nextInt();
-		scanner.nextLine();
 		
 		
-		switch (birthMonth) {
+		
+		try {
+			scanner.nextLine();
 			
-		case 1: 
-			m3 = MONTHS.JANUARY;
-			break;
-		case 2: 
-			m3 = MONTHS.FEBRUARY;
-			break;
-		case 3: 
-			m3 = MONTHS.MARCH;
-			break;
-		case 4: 
-			m3 = MONTHS.APRIL;
-			break;
-		case 5: 
-			m3 = MONTHS.MAY;
-			break;
-		case 6: 
-			m3 = MONTHS.JUNE;
-			break;
-		case 7: 
-			m3 = MONTHS.JULY;
-			break;
-		case 8: 
-			m3 = MONTHS.AUGUST;
-			break;
-		case 9: 
-			m3 = MONTHS.SEPTEMBER;
-			break;
-		case 10: 
-			m3 = MONTHS.OCTOBER;
-			break;
-		case 111: 
-			m3 = MONTHS.NOVEMBER;
-			break;
-		case 12: 
-			m3 = MONTHS.DECEMBER;
-			break;
-		default:
-			m3 = MONTHS.NOVEMBER;
-			break;
-		
+			switch (birthMonth) {
+			
+			case 1: 
+				m3 = MONTHS.JANUARY;
+				break;
+			case 2: 
+				m3 = MONTHS.FEBRUARY;
+				break;
+			case 3: 
+				m3 = MONTHS.MARCH;
+				break;
+			case 4: 
+				m3 = MONTHS.APRIL;
+				break;
+			case 5: 
+				m3 = MONTHS.MAY;
+				break;
+			case 6: 
+				m3 = MONTHS.JUNE;
+				break;
+			case 7: 
+				m3 = MONTHS.JULY;
+				break;
+			case 8: 
+				m3 = MONTHS.AUGUST;
+				break;
+			case 9: 
+				m3 = MONTHS.SEPTEMBER;
+				break;
+			case 10: 
+				m3 = MONTHS.OCTOBER;
+				break;
+			case 11: 
+				m3 = MONTHS.NOVEMBER;
+				break;
+			case 12: 
+				m3 = MONTHS.DECEMBER;
+				break;
+			default:
+				System.out.println("You did not pick an option listed.");
+				System.out.println("You will be assigned the default 'november");
+				m3 = MONTHS.NOVEMBER;
+				break;
+			}
+			
+			System.out.println("Print day of " + m3.toString() + " you were born on.");
+			int birthDay = scanner.nextInt();
+			scanner.nextLine();
+			//Check for day being less than 31.
+			//Consider checking for september 31 if we have time.
+			
+			
+			System.out.println("Print year of birth.");
+			int birthYear = scanner.nextInt();
+			scanner.nextLine();
+			//Check that this is 4 digits long exactly.
+			
+			
+			//Make the whole birthday.
+			String birthDate = m3.toString().toLowerCase() + " " + birthDay + ", " + birthYear;
+			employee.setDateOfBirth(birthDate);
+		} catch(InputMismatchException e) {
+			
+			System.out.println("Print a real number.");
+			System.out.println("Start over.");
+			create();
+			
 		}
 		
+
 		
-		System.out.println("Print day of " + m3.toString() + " you were born on.");
-		int birthDay = scanner.nextInt();
-		scanner.nextLine();
-		//Check for day being less than 31.
-		//Consider checking for september 31 if we have time.
-		
-		
-		System.out.println("Print year of birth.");
-		int birthYear = scanner.nextInt();
-		scanner.nextLine();
-		//Check that this is 4 digits long exactly.
-		
-		
-		//Make the whole birthday.
-		String birthDate = m3.toString().toLowerCase() + " " + birthDay + ", " + birthYear;
-		employee.setDateOfBirth(birthDate);
 				
 				
 		System.out.println("What department do you work in? Make this enum later. For now, one letter.");
 		System.out.println("i for IT, m for Marketing, h for HR.");
-		String dept = scanner.next();
+		String dept = scanner.nextLine();
 		if (dept.equals("i")) {
 			d3 = DEPARTMENT.IT;
 					
@@ -492,7 +605,7 @@ public class Create {
 		
 
 				
-		
+		//Adding this to file. 
 		WriteToSystem.serializeObject(MainClass.empHash, "content.txt");
 				
 
