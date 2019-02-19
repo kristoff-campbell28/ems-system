@@ -83,8 +83,9 @@ public class Employee extends Person {
 				+ "Age is: " + age + "\n"
 				+ "Phone Number is: " 
 				+ Long.toString(phoneNumber).substring(0, 3) + "-" + Long.toString(phoneNumber).substring(3, 6)
-				+ "-" + Long.toString(phoneNumber).substring(6, 9)
+				+ "-" + Long.toString(phoneNumber).substring(6, 10)
 				+ "\n"
+				+ "Their gender is " + gender + "\n" 
 				+ "Date they joined the company is: " + dateStartWork + "\n"
 				+ "Their address is: \n" 
 				+ address.getStreetNumber()

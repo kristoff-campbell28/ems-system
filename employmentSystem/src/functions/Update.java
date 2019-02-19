@@ -61,8 +61,8 @@ public class Update {
 					System.out.println("Please note that, due to safety reasons, "
 							+ "we only allow one item to be modified at a time.");
 					
-					System.out.println("Press 0 for changing the employee ID.");
-					System.out.println("Press 1 for changing the date of birth.");
+					//System.out.println("Press 0 for changing the employee ID.");
+					//System.out.println("Press 1 for changing the date of birth.");
 					System.out.println("Press 2 for changing the department worked in.");
 					System.out.println("Press 3 for changing the email.");
 					System.out.println("Press 4 for changing the job title.");
@@ -78,23 +78,23 @@ public class Update {
 					
 					
 					switch(change) {
-						case 0:
-							System.out.println("This is the old employee ID: ");
-							System.out.println(employee.getEmployeeID());
-							System.out.println("Enter the new employee ID.");
-							int newID = scanner.nextInt();
-							scanner.nextLine();
-							employee.setEmployeeID(newID);
-							System.out.println("The employee ID has been changed to " + employee.getEmployeeID());
-							break;
-						case 1:
-							System.out.println("This is the old date of birth: ");
-							System.out.println(employee.getDateOfBirth());
-							System.out.println("Enter the new date of birth.");
-							String newBirth = scanner.nextLine();
-							employee.setDateOfBirth(newBirth);
-							System.out.println("The date of birth has been changed to " + employee.getDateOfBirth());
-							break;
+//						case 0:
+//							System.out.println("This is the old employee ID: ");
+//							System.out.println(employee.getEmployeeID());
+//							System.out.println("Enter the new employee ID.");
+//							int newID = scanner.nextInt();
+//							scanner.nextLine();
+//							employee.setEmployeeID(newID);
+//							System.out.println("The employee ID has been changed to " + employee.getEmployeeID());
+//							break;
+//						case 1:
+//							System.out.println("This is the old date of birth: ");
+//							System.out.println(employee.getDateOfBirth());
+//							System.out.println("Enter the new date of birth.");
+//							String newBirth = scanner.nextLine();
+//							employee.setDateOfBirth(newBirth);
+//							System.out.println("The date of birth has been changed to " + employee.getDateOfBirth());
+//							break;
 						case 2:
 							System.out.println("This is the old department worked in: ");
 							System.out.println(employee.getDept());

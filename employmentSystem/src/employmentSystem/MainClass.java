@@ -37,6 +37,22 @@ public class MainClass {
 		//Or should everything be nextLine?
 		
 		
+	/*
+	 * } catch (InputMismatchException e) {
+	 
+
+		do {
+
+			System.out.println("Please Input a Valid Number: ");
+
+			scanner.nextLine();
+
+			if (scanner.hasNextInt())
+
+				break;
+
+		} while (scanner.hasNextLine()); */
+		
 		
 		
 		
@@ -45,8 +61,8 @@ public class MainClass {
 		//Program over?
 		boolean endProgram = true;
 		//Do another program?
-		boolean contForward;
-		//
+		boolean contForward = true;
+		
 		
 		System.out.println("The system is only equipped to hold 500 people, as that is the current");
 		System.out.println("maximum number of employees that Collabera can hire.");
@@ -55,6 +71,8 @@ public class MainClass {
 		while (usLiving) {
 		
 			System.out.println("Do you live in the US? Press 1 for yes, 2 for no, 3 to quit.");
+			
+			
 			int choice = scanner.nextInt();
 			scanner.nextLine();
 			
@@ -105,7 +123,7 @@ public class MainClass {
 			
 			
 				
-			scanner = new Scanner(System.in);
+			//scanner = new Scanner(System.in);
 			
 		
 			System.out.println("-----------------------------------------------------------");
@@ -126,32 +144,12 @@ public class MainClass {
 
 			System.out.println("[4]Delete an Employee");
 			
-			
-			int choice = scanner.nextInt();
-			scanner.nextLine();
-			
-			try {
-				
-				
-				
-			} catch (InputMismatchException e) {
-
-				do {
-
-					System.out.println("Please Input a Valid Number: ");
-
-					scanner.nextLine();
-
-					if (scanner.hasNextInt())
-
-						break;
-
-				} while (scanner.hasNextLine());
+				int choice = scanner.nextInt();
+				scanner.nextLine();
 
 				if (choice == 1) {
 					System.out.println("[1] Create");
 					Create.create();
-					
 					
 					
 					
@@ -176,6 +174,7 @@ public class MainClass {
 					else {
 						System.out.println("Guess you're updating.");
 						Update.updater();
+						
 					}
 					
 					
@@ -190,6 +189,7 @@ public class MainClass {
 						Delete.delete();
 						
 						System.out.println("Current number of employees in the system is " + empHash.size());
+						
 					}
 					
 					
@@ -200,7 +200,7 @@ public class MainClass {
 					contForward = false;
 				}
 
-			}
+			
 			
 			
 			
@@ -226,6 +226,7 @@ public class MainClass {
 					else if (contTask == 1) {
 						System.out.println("Then please select your next option.");
 						contForward = false;
+						
 					}
 					else if (contTask != 1 && contTask != 2) {
 						System.out.println("That's not an answer.");
@@ -255,11 +256,13 @@ public class MainClass {
 				
 			}
 			
+		}
+			
 			
 			
 		
 			
-		}
+		
 		
 		
 		

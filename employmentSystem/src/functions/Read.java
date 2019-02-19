@@ -98,10 +98,12 @@ public class Read {
 						case 0: 
 							System.out.println("These are all details about the employee:");
 							System.out.println(employee);
+							//leaveProgram = false;
 							break;
 						case 1: 
 							System.out.println("This is the date of birth:");
 							System.out.println(employee.getDateOfBirth());
+							//leaveProgram = false;
 							break;
 						case 2: //
 							System.out.println("This is the department:");
@@ -125,6 +127,7 @@ public class Read {
 							System.out.println("This is the salary:");
 							System.out.print("$");
 							System.out.printf("%.2f", employee.getSalary());
+							System.out.println();
 							break;
 						case 7: 
 							System.out.println("This is the full name:");
@@ -136,7 +139,7 @@ public class Read {
 							double phoneNumber = employee.getPhoneNumber();
 							System.out.println(Double.toString(phoneNumber).substring(0, 3) + "-" 
 									+ Double.toString(phoneNumber).substring(3, 6)
-									+ "-" + Double.toString(phoneNumber).substring(6, 9));
+									+ "-" + Double.toString(phoneNumber).substring(6, 10));
 							break;
 						case 9: 
 							System.out.println("This is the person's complete address:");
