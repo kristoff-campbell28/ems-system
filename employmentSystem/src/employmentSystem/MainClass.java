@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Scanner;
@@ -107,90 +108,151 @@ public class MainClass {
 			scanner = new Scanner(System.in);
 			
 		
-			System.out.println("Please select the type of system you wish to use.");
-			System.out.println("1 for create, 2 for recall, 3 for update, 4 for destroy.");
+			System.out.println("-----------------------------------------------------------");
+
+			System.out.println("WELCOME TO COLLABERA");
+
+			System.out.println("-----------------------------------------------------------");
+
+			System.out.println("Please Enjoy Our Employee Management System");
+
+			System.out.println("-----------------------------------------------------------");
+
+			System.out.println("[1]Create an Employee");
+
+			System.out.println("[2]Retrieve Employee(s)");
+
+			System.out.println("[3]Update an Employee");
+
+			System.out.println("[4]Delete an Employee");
+			
+			
 			int choice = scanner.nextInt();
 			scanner.nextLine();
 			
-			
-			if (choice == 1) {
-				System.out.println("Guess you're creating.");
-				Create.create();
+			try {
 				
 				
 				
-				
-			}
-				
-			else if (choice == 2) {
-				if (empHash.isEmpty()) {
-					System.out.println("Sorry, this is empty. Put in content, then try again.");
-				}
-				else {
-					System.out.println("Guess you're recalling.");
-					Read.reader();
-				}
-				
-				
-				
-			}
-			else if (choice == 3) {
-				if (empHash.isEmpty()) {
-					System.out.println("Sorry, this is empty. Put in content, then try again.");
-				}
-				else {
-					System.out.println("Guess you're updating.");
-					Update.updater();
-				}
-				
-				
-			}
-			else if (choice == 4) {
-				
-				if (empHash.isEmpty()) {
-					System.out.println("Sorry, this is empty. Put in content, then try again.");
-				}
-				else {
-					System.out.println("Guess you're deleting.");
-					Delete.delete();
+			} catch (InputMismatchException e) {
+
+				do {
+
+					System.out.println("Please Input a Valid Number: ");
+
+					scanner.nextLine();
+
+					if (scanner.hasNextInt())
+
+						break;
+
+				} while (scanner.hasNextLine());
+
+				if (choice == 1) {
+					System.out.println("[1] Create");
+					Create.create();
 					
-					System.out.println(empHash.size());
+					
+					
+					
 				}
-				
-				
-				
+					
+				else if (choice == 2) {
+					if (empHash.isEmpty()) {
+						System.out.println("Sorry, this is empty. Put in content, then try again.");
+					}
+					else {
+						System.out.println("Guess you're recalling.");
+						Read.reader();
+					}
+					
+					
+					
+				}
+				else if (choice == 3) {
+					if (empHash.isEmpty()) {
+						System.out.println("Sorry, this is empty. Put in content, then try again.");
+					}
+					else {
+						System.out.println("Guess you're updating.");
+						Update.updater();
+					}
+					
+					
+				}
+				else if (choice == 4) {
+					
+					if (empHash.isEmpty()) {
+						System.out.println("Sorry, this is empty. Put in content, then try again.");
+					}
+					else {
+						System.out.println("Guess you're deleting.");
+						Delete.delete();
+						
+						System.out.println("Current number of employees in the system is " + empHash.size());
+					}
+					
+					
+					
+				}
+				else {
+					System.out.println("Please choose a real output.");
+					contForward = false;
+				}
+
 			}
-			else {
-				System.out.println("Please choose a real output.");
-				contForward = false;
-			}
+			
+			
+			
 			
 			
 			while (contForward) {
 				System.out.println("Would you like to continue? Press 1 for yes, 2 for no.");
 				
-				int contTask = scanner.nextInt();
-				scanner.nextLine();
-				
-				
-				if (contTask == 2) {
-					System.out.println("Thank you for using this program.");
+				try {
 					
-					//WriteToSystem.serializeObject(empHash, "content.txt");
-					
-					contForward = false;
-					endProgram = false; 
+					int contTask = scanner.nextInt();
+					scanner.nextLine();
 					
 					
-				}
-				else if (contTask == 1) {
-					System.out.println("Then please select your next option.");
-					contForward = false;
-				}
-				else if (contTask != 1 && contTask != 2) {
-					System.out.println("That's not an answer.");
+					if (contTask == 2) {
+						System.out.println("Thank you for using this program.");
+											
+						contForward = false;
+						endProgram = false; 
+						
+						
+					}
+					else if (contTask == 1) {
+						System.out.println("Then please select your next option.");
+						contForward = false;
+					}
+					else if (contTask != 1 && contTask != 2) {
+						System.out.println("That's not an answer.");
+
+					}
+					
+				} catch (InputMismatchException e) {
+
+
+
+					do {
+
+						System.out.println("Please Input a Valid Number: ");
+
+						scanner.nextLine();
+
+						if (scanner.hasNextInt()) 
+
+							break;
+
+					} while (scanner.hasNextLine());
+
+
 
 				}
+				
+				
 			}
 			
 			
