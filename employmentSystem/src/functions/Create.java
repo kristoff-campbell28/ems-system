@@ -33,7 +33,7 @@ public class Create {
 		
 		System.out.println("Enter an Email ID. It will be followed with @Collabera.com.");
 		// Run a check to ensure that there's no spaces.
-		String email = Helpers.validateExp(scanner, "[a-z0-9]+@[a-z0-9]+\\.[[a-z0-9]+");
+		String email = Helpers.validateExp(scanner, MainClass.emailExp);
 		employee.setEmail(email);
 
 		System.out.println("Enter a Job Title: ");
@@ -54,7 +54,7 @@ public class Create {
 
 		employee.setJobTitle(j3);
 		System.out.println("What's your social security number? No hyphens, just a 9 digit number.");
-		int ssn = Helpers.validateInt(scanner);
+		int ssn = Helpers.validateLength(scanner, 9);
 		employee.setSsn(ssn);
 
 		System.out.println("What's your salary?");
@@ -75,7 +75,7 @@ public class Create {
 		address.setCity(city);
 
 		System.out.println("What is your state? Print the two letter abbreviation");
-		String state = Helpers.validateExp(scanner, "[A-Z]{2}");
+		String state = Helpers.validateExp(scanner, MainClass.stateExp);
 		String capState = state.toUpperCase();
 		switch (capState) {
 		case "AL":
@@ -264,7 +264,7 @@ public class Create {
 		}
 		address.setState(u3);
 		System.out.println("What is your zip code?");
-		int zipCode = Helpers.validateInt(scanner);
+		int zipCode = Helpers.validateLength(scanner, 5);
 		address.setZipCode(zipCode);
 		
 		System.out.println("Enter first name.");
@@ -275,13 +275,9 @@ public class Create {
 
 		String fullName = firstName.toUpperCase() + " " + lastName.toUpperCase();
 		employee.setFullName(fullName);
-		System.out.println("Enter age: ");
-		int age = Helpers.validateInt(scanner);
-		employee.setAge(age);
 		
 		System.out.println("Enter phone number without hyphens.");
-		long phoneNumber = scanner.nextLong();
-		scanner.nextLine();
+		long phoneNumber = Helpers.validateLongLength(scanner, 10);
 		employee.setPhoneNumber(phoneNumber);
 
 		System.out.println("Enter gender. Type m for male, f for female, o for other");
@@ -360,7 +356,7 @@ public class Create {
 		// Consider checking for September 31 if we have time.
 
 		System.out.println("Print year of birth.");
-		int birthYear = Helpers.validateInt(scanner);
+		int birthYear = Helpers.validateLength(scanner, 4);
 		// Check that this is 4 digits long exactly.
 
 		// Make the whole birthday.
@@ -385,7 +381,7 @@ public class Create {
 			else {
 				System.out.println("Do a real option.");
 				d3 = DEPARTMENT.HR;
-				break;
+				continue;
 			} 
 		}
 		employee.setDept(d3);
@@ -405,8 +401,7 @@ public class Create {
 			// Go through arraylist to find employees, and confirm working or not working  for.
 			// Stop when number of employees is reached.
 			System.out.println("How many employees do you want to work under the manager?");
-			int amount = Helpers.validateInt(scanner); // Check that this is less than the amount of employees
-														// available.
+			int amount = Helpers.validateInt(scanner); // Check that this is less than the amount of employees available.
 			if (amount > MainClass.keyValues.length) {
 				for(int i = 0; i <= amount; i++) {
 					System.out.println("Enter an employee ID");
@@ -414,6 +409,8 @@ public class Create {
 					empl.addEmployee(empHash.get(id));
 				}
 			}
+			empHash.put(employee.getEmployeeID(), employee);
+			Helpers.serializeObject(empHash, MainClass.fileName);
 			break;
 		case 2:
 			break;

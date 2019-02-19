@@ -19,6 +19,10 @@ import functions.*;
 
 public class MainClass {
 
+	public static String emailExp = "[a-z0-9]+@[a-z0-9]+\\.[a-z0-9]+";
+	public static String stateExp = "[A-Z]{2}";
+	public static String fileName = "content.txt";
+	
 	public static Scanner scanner = new Scanner(System.in);
 	public static LinkedHashMap<Integer, Employee> empHash = new LinkedHashMap<Integer, Employee>();
 	public static int[] keyValues = new int[500];
@@ -81,7 +85,7 @@ public class MainClass {
 			File file = new File("content.txt");
 
 			if (file.exists()) {
-				empHash = (LinkedHashMap<Integer, Employee>) Helpers.deserializeObject("content.txt");
+				empHash = (LinkedHashMap<Integer, Employee>) Helpers.deserializeObject(fileName);
 				System.out.println("This is the current form of the employee HashMap:");
 
 				if (empHash.isEmpty()) {
@@ -164,7 +168,7 @@ public class MainClass {
 					System.out.println("Thank you for using this program.");
 					contForward = false;
 					endProgram = false;
-					Helpers.serializeObject(empHash, "");
+					Helpers.serializeObject(empHash, fileName);
 				} else if (contTask == 1) {
 					System.out.println("Then please select your next option.");
 					contForward = false;

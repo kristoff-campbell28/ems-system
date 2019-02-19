@@ -12,7 +12,7 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Helpers {
-	
+
 	public static Object deserializeObject(String fileName)
 			throws FileNotFoundException, IOException, ClassNotFoundException {
 		ObjectInputStream inStream = new ObjectInputStream(new FileInputStream(new File(fileName)));
@@ -30,13 +30,12 @@ public class Helpers {
 	public static String validateExp(Scanner scanner, String pattern) {
 		String output = "";
 		boolean loop = true;
-		while(loop) {
+		while (loop) {
 			try {
 				output = scanner.next(pattern);
 				scanner.nextLine();
 				loop = false;
-			}
-			catch(NoSuchElementException e) {
+			} catch (NoSuchElementException e) {
 				System.out.println("Invalid input.");
 				scanner.nextLine();
 			}
@@ -47,18 +46,45 @@ public class Helpers {
 	public static int validateInt(Scanner scanner) {
 		int output = 0;
 		boolean loop = true;
-		while(loop) {
+		while (loop) {
 			try {
 				output = scanner.nextInt();
 				scanner.nextLine();
 				loop = false;
-			}
-			catch(InputMismatchException e) {
+			} catch (InputMismatchException e) {
 				System.out.println("Invalid input.");
 				continue;
 			}
 		}
 		return output;
 	}
+
+	public static int validateLength(Scanner scanner, int length) {
+		int number;
+		do {
+			System.out.println("Please enter  a " + length + " integer");
+			while (!scanner.hasNextInt()) {
+				System.out.println("Please print an integer.");
+				scanner.next();
+			}
+			number = scanner.nextInt();
+			scanner.nextLine();
+		} while (Integer.toString(number).length() != length);
+		return number;
+	}
 	
+	public static long  validateLongLength(Scanner scanner, int length) {
+		int number;
+		do {
+			System.out.println("Please enter  a " + length + " integer");
+			while (!scanner.hasNextInt()) {
+				System.out.println("Please print an integer.");
+				scanner.next();
+			}
+			number = scanner.nextInt();
+			scanner.nextLine();
+		} while (Integer.toString(number).length() != length);
+		return number;
+	}
+
 }
