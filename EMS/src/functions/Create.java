@@ -3,6 +3,7 @@ package functions;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import employmentSystem.Address;
@@ -15,7 +16,7 @@ import enums.JOBTITLE;
 import enums.USSTATES;
 
 public class Create {
-
+	
 	public static void create() {
 
 		Scanner scanner = MainClass.scanner;
@@ -28,8 +29,7 @@ public class Create {
 		Employee employee = new Employee();
 
 		System.out.println("What's your employee ID? Have some range limitations later.");
-		int employeeID = scanner.nextInt();
-		scanner.nextLine();
+		int employeeID = Helpers.validateInt(scanner);
 		employee.setEmployeeID(employeeID);
 
 		System.out.println("Everyone's email will end with @Collabera.com. But you can choose what goes before the @.");
