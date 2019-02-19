@@ -137,9 +137,10 @@ public class Read {
 							System.out.println("This is the phone number:");
 							
 							double phoneNumber = employee.getPhoneNumber();
-							System.out.println(Double.toString(phoneNumber).substring(0, 3) + "-" 
-									+ Double.toString(phoneNumber).substring(3, 6)
-									+ "-" + Double.toString(phoneNumber).substring(6, 10));
+							String phoneString = String.format("%.0f\n", phoneNumber);
+							System.out.println(phoneString.substring(0, 3) + "-" 
+									+ phoneString.substring(3, 6)
+									+ "-" + phoneString.substring(6, 10));
 							break;
 						case 9: 
 							System.out.println("This is the person's complete address:");
