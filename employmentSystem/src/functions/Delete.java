@@ -42,6 +42,7 @@ public class Delete {
 			
 			
 			WriteToSystem.serializeObject(MainClass.empHash, "content.txt");
+			
 		} catch (InputMismatchException e) {
 
 			

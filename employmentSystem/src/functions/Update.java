@@ -1,5 +1,7 @@
 package functions;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -14,7 +16,7 @@ import enums.USSTATES;
 
 public class Update {
 	
-	public static void updater() {
+	public static void updater() throws FileNotFoundException, IOException {
 		
 		
 		/*
@@ -61,8 +63,6 @@ public class Update {
 					System.out.println("Please note that, due to safety reasons, "
 							+ "we only allow one item to be modified at a time.");
 					
-					//System.out.println("Press 0 for changing the employee ID.");
-					//System.out.println("Press 1 for changing the date of birth.");
 					System.out.println("Press 2 for changing the department worked in.");
 					System.out.println("Press 3 for changing the email.");
 					System.out.println("Press 4 for changing the job title.");
@@ -78,23 +78,6 @@ public class Update {
 					
 					
 					switch(change) {
-//						case 0:
-//							System.out.println("This is the old employee ID: ");
-//							System.out.println(employee.getEmployeeID());
-//							System.out.println("Enter the new employee ID.");
-//							int newID = scanner.nextInt();
-//							scanner.nextLine();
-//							employee.setEmployeeID(newID);
-//							System.out.println("The employee ID has been changed to " + employee.getEmployeeID());
-//							break;
-//						case 1:
-//							System.out.println("This is the old date of birth: ");
-//							System.out.println(employee.getDateOfBirth());
-//							System.out.println("Enter the new date of birth.");
-//							String newBirth = scanner.nextLine();
-//							employee.setDateOfBirth(newBirth);
-//							System.out.println("The date of birth has been changed to " + employee.getDateOfBirth());
-//							break;
 						case 2:
 							System.out.println("This is the old department worked in: ");
 							System.out.println(employee.getDept());
@@ -161,13 +144,13 @@ public class Update {
 							System.out.println("This is the old social security number: ");
 							
 							String ssnOld = Integer.toString(employee.getSsn());
-							System.out.println(ssnOld.substring(0, 3) + "-" + ssnOld.substring(3, 5) + "-" + ssnOld.substring(5, 8));
+							System.out.println(ssnOld.substring(0, 3) + "-" + ssnOld.substring(3, 5) + "-" + ssnOld.substring(5, 9));
 							System.out.println("Enter the new social security number.");
 							int newSsn = scanner.nextInt();
 							employee.setSsn(newSsn);
 							String newSsnString = Integer.toString(newSsn);
 							System.out.println("The social security number has been changed to ");
-							System.out.println(newSsnString.substring(0, 3) + "-" + newSsnString.substring(3, 5) + "-" + newSsnString.substring(5, 8));
+							System.out.println(newSsnString.substring(0, 3) + "-" + newSsnString.substring(3, 5) + "-" + newSsnString.substring(5, 9));
 							break;
 						case 6:
 							
@@ -177,7 +160,7 @@ public class Update {
 							System.out.printf("%.2f", employee.getSalary());
 							System.out.println();
 							System.out.println("Enter the new salary.");
-							double newSalary = scanner.nextInt();
+							double newSalary = scanner.nextDouble();
 							scanner.nextLine();
 							employee.setSalary(newSalary);
 							System.out.println("The salary has been changed to: ");
@@ -198,10 +181,11 @@ public class Update {
 							break;
 						case 8:
 							System.out.println("This is the old phone number: ");
-							long phoneNumber = employee.getPhoneNumber();
-							System.out.println(Double.toString(phoneNumber).substring(0, 3) + "-" 
-									+ Double.toString(phoneNumber).substring(3, 6)
-									+ "-" + Double.toString(phoneNumber).substring(6, 9));
+							double phoneNumber = employee.getPhoneNumber();
+							String phoneString = String.format("%.0f\n", phoneNumber);
+							System.out.println(phoneString.substring(0, 3) + "-" 
+									+ phoneString.substring(3, 6)
+									+ "-" + phoneString.substring(6, 10));
 							System.out.println("Enter the new phone number.");
 							long newPhone = scanner.nextLong();
 							scanner.nextLine();
@@ -209,7 +193,7 @@ public class Update {
 							System.out.println("The phone number has been changed to ");
 							System.out.println(Long.toString(newPhone).substring(0, 3) + "-" 
 									+ Long.toString(newPhone).substring(3, 6)
-									+ "-" + Long.toString(newPhone).substring(6, 9));
+									+ "-" + Long.toString(newPhone).substring(6, 10));
 							break;
 						case 9:
 							System.out.println("This is the old address: ");
@@ -478,7 +462,8 @@ public class Update {
 					}
 					
 					
-					
+					WriteToSystem.serializeObject(MainClass.empHash, "content.txt");
+
 					
 					options = false;
 			

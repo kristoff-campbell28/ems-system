@@ -57,7 +57,7 @@ public class MainClass {
 		
 		
 		//Live in US?
-		boolean usLiving = true;
+		//boolean usLiving = true;
 		//Program over?
 		boolean endProgram = true;
 		//Do another program?
@@ -68,33 +68,33 @@ public class MainClass {
 		System.out.println("maximum number of employees that Collabera can hire.");
 		System.out.println("We will update the system as max employee count increases. \n \n \n");
 		
-		while (usLiving) {
-		
-			System.out.println("Do you live in the US? Press 1 for yes, 2 for no, 3 to quit.");
-			
-			
-			int choice = scanner.nextInt();
-			scanner.nextLine();
-			
-			if (choice == 1) {
-				System.out.println("Great to hear. \n");
-				usLiving = false;
-			}
-			
-			else if (choice == 2) {
-				System.out.println("Sorry, but this system only works for US addresses.");
-			}
-			else if (choice == 3) {
-				System.out.println("Thank you for using the EMS.");
-				System.exit(0);
-			}
-			
-			else {
-				System.out.println("That's not one of the choices.");
-			}
-			
-			
-		}
+//		while (usLiving) {
+//		
+//			System.out.println("Do you live in the US? Press 1 for yes, 2 for no, 3 to quit.");
+//			
+//			
+//			int choice = scanner.nextInt();
+//			scanner.nextLine();
+//			
+//			if (choice == 1) {
+//				System.out.println("Great to hear. \n");
+//				usLiving = false;
+//			}
+//			
+//			else if (choice == 2) {
+//				System.out.println("Sorry, but this system only works for US addresses.");
+//			}
+//			else if (choice == 3) {
+//				System.out.println("Thank you for using the EMS.");
+//				System.exit(0);
+//			}
+//			
+//			else {
+//				System.out.println("That's not one of the choices.");
+//			}
+//			
+//			
+//		}
 		
 			
 		while (endProgram) {
