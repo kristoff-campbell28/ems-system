@@ -98,5 +98,4 @@ public class Helpers {
 		} while (!str.matches(pattern));
 		return str;
 	}
-
 }

@@ -16,7 +16,7 @@ import enums.USSTATES;
 public class Update {
 
 	public static void updater() throws FileNotFoundException, IOException {
-
+		
 		/*
 		 * FIND THE PROBLEMS!!!! This includes email.
 		 */
@@ -25,6 +25,7 @@ public class Update {
 		Scanner scanner = MainClass.scanner;
 		Address address = new Address();
 		USSTATES u3 = null;
+		MONTHS m3 = null;
 
 		System.out.println("Your choices are as follows: ");
 
@@ -60,7 +61,6 @@ public class Update {
 				System.out.println("Press 10 for changing the gender.");
 				int change = Helpers.validateInt(scanner);
 
-				MONTHS m3 = null;
 				switch (change) {
 				case 0:
 					System.out.println("This is the old employee ID: ");
