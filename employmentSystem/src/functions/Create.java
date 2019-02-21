@@ -30,151 +30,275 @@ public class Create {
 		
 		//Setting up all the variables.
 		Scanner scanner = MainClass.scanner;
-		GENDER g3;
-		DEPARTMENT d3;
-		JOBTITLE j3;
-		USSTATES u3;
-		MONTHS m3;
+		GENDER g3 = null;
+		DEPARTMENT d3 = null;
+		JOBTITLE j3 = null;
+		USSTATES u3 = null;
+		MONTHS m3 = null;
 		LinkedHashMap<Integer, Employee> empHash = MainClass.empHash;
 		Address address = new Address();
 		Employee employee = new Employee();		
 		
+	//Is there a way to not have please print an integer twice.****
+		//The spaces are a big deal too. 
+		//Try to find a solution for when printed numbers can start with 0. Like zip codes.
 		
 		
-		try {
-			System.out.println("Enter an Employee ID: ");		
-			int employeeID = scanner.nextInt();
-			scanner.nextLine();
-			employee.setEmployeeID(employeeID);
 			
-		} catch(InputMismatchException e) {
-
 			
-
-			System.out.println("ID must be 5 numbers XXXXX");
-
-			scanner.nextLine();
-
-			create();
-
+			//Make it start with 0. 
+			int employeeID;
 			
-
-			
-
-		}
-		
+			do {
+				System.out.println("Please enter 5 digit employee ID. Company policy");
+				while (!scanner.hasNextInt()) {
+					
+					System.out.println("Please print an integer.");
+					scanner.nextLine();
+					
+				}
+				employeeID = scanner.nextInt();
+				scanner.nextLine();
 				
-		try {
+				
+				
+			} while ((Integer.toString(employeeID).length() != 5));
 			
-			System.out.println("Enter an Email ID. It will be followed with @Collabera.com.");
-			//Run a check to ensure that there's no spaces.
-			String email = scanner.nextLine();
-			employee.setEmail(email);
+			employee.setEmployeeID(employeeID);
+
 			
-		} catch (InputMismatchException e) {
-			System.out.println("One word. No spaces.");
-			System.out.println("You must start over.");
-			create();
-		}
+			
 		
-		try {
 			
-			System.out.println("Enter a Job Title: ");
-			System.out.println("Press 1 for Booker, 2 for Salaryman, 3 for Dog.");
-			int jobTitle = scanner.nextInt();
-			scanner.nextLine();
 			
-			if (jobTitle == 1) {
+			String email = null; 
+			
+			do {
+				System.out.println("Enter an Email ID. It will be followed with @Collabera.com.");
+				email = scanner.nextLine();
+			
+				if (!email.matches("[a-zA-Z0-9]*")) {
+					System.out.println("No spaces or non-alphanumeric characters.");
+				}
+				
+				
+			} while (!email.matches("[a-zA-Z0-9]*"));
+			
+			//System.out.println("The email is " + email + "@Collabera.com.");
+			employee.setEmail(email);
+		
+		
+
+			
+			
+
+			String jobTitle;
+			do {
+				System.out.println("Print your job title. Press 1 for Booker, 2 for Salaryman, 3 for Dog.");
+				jobTitle = scanner.nextLine();
+				
+				if (!jobTitle.equals("1") && !jobTitle.equals("2") && !jobTitle.equals("3")) {
+					System.out.println("Please pick one of the three choices. Nothing else.");
+				}
+					
+			}	while (!jobTitle.equals("1") && !jobTitle.equals("2") && !jobTitle.equals("3"));
+			
+			if (jobTitle.equals("1")) {
 				j3 = JOBTITLE.BOOKER;
 			}
-			else if (jobTitle == 2) {
+			else if (jobTitle.equals("2")) {
 				j3 = JOBTITLE.SALARYMAN;
 			}
-			else if (jobTitle == 3) {
-				j3 = JOBTITLE.DOG;
-			}
 			else {
-				System.out.println("Print an actual option.");
-				System.out.println("You are assigned the default job 'dog'.");
 				j3 = JOBTITLE.DOG;
 			}
 			
-			employee.setJobTitle(j3);
+			employee.setJobTitle(j3); 
 			
-		} catch (InputMismatchException e) {
-			System.out.println("Please print an actual number.");
-			System.out.println("Start over.");
-			create();
-		} 
+
+			
+			
+			//Check if something is ONLY letters and numbers.
 				
 			
-		try {
-			System.out.println("What's your social security number? No hyphens, just a 9 digit number.");
-			int ssn = scanner.nextInt();
-			scanner.nextLine();
+
+			
+			int ssn;
+			do {
+				System.out.println("What's your social security number? No hyphens, just a 9 digit number.");
+				while (!scanner.hasNextInt()) {
+					
+					System.out.println("Please print an integer.");
+					scanner.nextLine();
+				}
+				ssn = scanner.nextInt();
+				scanner.nextLine();
+				
+				
+				
+			} while ((Integer.toString(ssn).length() != 9));
+				
 			employee.setSsn(ssn);
+		
 			
-		} catch (InputMismatchException e) {
-
-			System.out.println("Please enter a 9 digit number: ");
-			scanner.nextLine();
-			create();
-
-		}
+			
+		
+			
+		
+			//This doesn't take decimals for now. Fix that.
+			//This also needs a way to prevent spaces from coming out. 
+			long salary;
+			
+			do {
+				System.out.println("What's your salary?");
+				while (!scanner.hasNextLong()) {
+					
+					System.out.println("Please print an actual number.");
+					scanner.nextLine();
+				}
+				salary = scanner.nextLong();
+				scanner.nextLine();
+				
+				if (salary > 1000000000000l) {
+					System.out.println("Please don't print a ridiculous amount that clearly isn't your salary.");
+					System.out.println("If you really earned over $1 trillion, stop this program and tell me to make");
+					System.out.println("you a custom one.");
+				}
 				
 				
-		try {
+			} while ((salary < 0) || (salary > 1000000000000l));
 			
-			System.out.println("What's your salary?");
-			double salary = scanner.nextDouble();
-			scanner.nextLine();
+			
 			employee.setSalary(salary);
 			
 			
-		} catch (InputMismatchException e) {
-
-			System.out.println("Please enter an actual number: ");
-
-			scanner.nextLine();
-
-			create();
-
-		}
+		
 				
 				
-		try {
+			int streetNumber;
 			
-			System.out.println("What is your street number?");
-			int streetNumber = scanner.nextInt();
-			scanner.nextLine();
+			
+			do {
+				System.out.println("Please enter your street number.");
+				while (!scanner.hasNextInt()) {
+					
+					System.out.println("Please print an actual number.");
+					scanner.nextLine();
+				}
+				streetNumber = scanner.nextInt();
+				scanner.nextLine();
+				
+				
+				
+				
+			} while ((Integer.toString(streetNumber).length() < 3) || (5 < (Integer.toString(streetNumber).length())));
+			
 			address.setStreetNumber(streetNumber);
-			
-		} catch (InputMismatchException e) {
-
-			System.out.println("Please enter an actual number: ");
-			System.out.println("Start over.");
-
-			scanner.nextLine();
-
-			create();
-
-		}
-				
+	
 				
 		
 		
-				
-		System.out.println("What is your street name?");
-		String streetName = scanner.nextLine();
+		
+
+		
+		//Allow for spaces here by the link below.
+		//https://docs.oracle.com/javase/tutorial/essential/regex/pre_char_classes.html
+		String streetName;	
+		do {
+			System.out.println("Print the street name. For now, just one word. Spaces joining later.");
+			streetName = scanner.nextLine(); 
+		
+			if (!streetName.matches("[a-zA-Z0-9]*")) {
+				System.out.println("No non-alphanumeric characters.");
+			}
+		} while (!streetName.matches("[a-zA-Z0-9]*") );
+		
+		//System.out.println("The street name is " + streetName + ". ");
+		
+		
 		address.setStreetName(streetName);
 				
-		System.out.println("What is your city?");
-		String city = scanner.nextLine();
+		
+		String city;
+		
+		
+		do {
+		System.out.println("Print the city. One word. Fix that later.");
+		city = scanner.nextLine();
+	
+		if (!city.matches("[a-zA-Z]*")) {
+			System.out.println("No spaces or non-alphanumeric characters.");
+		}
+	    
+		} while (!city.matches("[a-zA-Z]*"));
+	
+
+		
 		address.setCity(city);
+		
 				
-		System.out.println("What is your state? Print the two letter abbreviation");
-		String state = scanner.nextLine();
-		String capState = state.toUpperCase();
+		
+		
+		
+		
+
+		String state;
+		String capState;
+		do {
+			System.out.println("What is your state? Print the two letter abbreviation");
+			System.out.println("Type 'pa' if you live in Pennsylvania, for instance.");
+			//A future value might outline them all.
+			state = scanner.nextLine();
+			capState = state.toUpperCase();
+			
+			if (!capState.equals("AL") && !capState.equals("AK") && !capState.equals("AS") &&
+					!capState.equals("AZ") && !capState.equals("AR") && !capState.equals("CA") &&
+					!capState.equals("CO") && !capState.equals("CT") && !capState.equals("DC") &&
+					!capState.equals("DE") && !capState.equals("FL") && !capState.equals("FM") &&
+					!capState.equals("GA") && !capState.equals("GU") && !capState.equals("HI") &&
+					!capState.equals("ID") && !capState.equals("IL") && !capState.equals("IN") &&
+					!capState.equals("IA") && !capState.equals("KS") && !capState.equals("KY") &&
+					!capState.equals("LA") && !capState.equals("ME") && !capState.equals("MD") &&
+					!capState.equals("MA") && !capState.equals("MH") && !capState.equals("MI") &&
+					!capState.equals("MN") && !capState.equals("MS") && !capState.equals("MO") &&
+					!capState.equals("MP") && !capState.equals("MT") && !capState.equals("NE") &&
+					!capState.equals("NV") && !capState.equals("NH") && !capState.equals("NJ") &&
+					!capState.equals("NM") && !capState.equals("NY") && !capState.equals("NC") &&
+					!capState.equals("ND") && !capState.equals("OH") && !capState.equals("OK") &&
+					!capState.equals("OR") && !capState.equals("PA") && !capState.equals("PR") &&
+					!capState.equals("PW") && !capState.equals("RI") && !capState.equals("SC") &&
+					!capState.equals("SD") && !capState.equals("TN") && !capState.equals("TX") &&
+					!capState.equals("UT") && !capState.equals("VT") && !capState.equals("VA") &&
+					!capState.equals("VI") && !capState.equals("WA") && !capState.equals("WV") &&
+					!capState.equals("WI") && !capState.equals("WY")) 
+			{
+				System.out.println("Please pick one of the 50 available states.");
+			}
+				
+		}
+		
+		while (!capState.equals("AL") && !capState.equals("AK") && !capState.equals("AS") &&
+				!capState.equals("AZ") && !capState.equals("AR") && !capState.equals("CA") &&
+				!capState.equals("CO") && !capState.equals("CT") && !capState.equals("DC") &&
+				!capState.equals("DE") && !capState.equals("FL") && !capState.equals("FM") &&
+				!capState.equals("GA") && !capState.equals("GU") && !capState.equals("HI") &&
+				!capState.equals("ID") && !capState.equals("IL") && !capState.equals("IN") &&
+				!capState.equals("IA") && !capState.equals("KS") && !capState.equals("KY") &&
+				!capState.equals("LA") && !capState.equals("ME") && !capState.equals("MD") &&
+				!capState.equals("MA") && !capState.equals("MH") && !capState.equals("MI") &&
+				!capState.equals("MN") && !capState.equals("MS") && !capState.equals("MO") &&
+				!capState.equals("MP") && !capState.equals("MT") && !capState.equals("NE") &&
+				!capState.equals("NV") && !capState.equals("NH") && !capState.equals("NJ") &&
+				!capState.equals("NM") && !capState.equals("NY") && !capState.equals("NC") &&
+				!capState.equals("ND") && !capState.equals("OH") && !capState.equals("OK") &&
+				!capState.equals("OR") && !capState.equals("PA") && !capState.equals("PR") &&
+				!capState.equals("PW") && !capState.equals("RI") && !capState.equals("SC") &&
+				!capState.equals("SD") && !capState.equals("TN") && !capState.equals("TX") &&
+				!capState.equals("UT") && !capState.equals("VT") && !capState.equals("VA") &&
+				!capState.equals("VI") && !capState.equals("WA") && !capState.equals("WV") &&
+				!capState.equals("WI") && !capState.equals("WY"));
+		
+		
 		switch(capState) {
 		
 			case "AL":
@@ -357,84 +481,142 @@ public class Create {
 			
 			default:
 				System.out.println("You have failed to print a state.");
-				System.out.println("You will be assigned the default value of New Jersey, ");
-				System.out.println("where Collabera is located.");
-				u3 = USSTATES.NJ;
+				break;
+				
 		}
 		address.setState(u3);
 		
-		try {
+	
 			
-			System.out.println("What is your zip code?");
-			int zipCode = scanner.nextInt();
-			scanner.nextLine();
+			
+			
+			int zipCode;
+			
+			do {
+				System.out.println("What is your zip code?");
+				while (!scanner.hasNextInt()) {
+					
+					System.out.println("Please print an integer.");
+					scanner.nextLine();
+					
+				}
+				zipCode = scanner.nextInt();
+				scanner.nextLine();
+				
+				
+				
+			} while ((Integer.toString(zipCode).length() != 5));
+			
 			address.setZipCode(zipCode);
 					
 			
-		} catch(InputMismatchException e) {
-
-			System.out.println("Please enter a number in the format: XXXXX ");
-
-			scanner.nextLine();
-
-			create();
-
-		}
+		
 				
 		
 				
 				
 				
 		
+		
+		
+		
+		String firstName;
+		
+		
+		do {
 		System.out.println("Enter first name.");
-		String firstName = scanner.nextLine();
-						
-		System.out.println("Enter last name: ");
-		String lastName = scanner.nextLine();
+		firstName = scanner.nextLine();
+	
+		if (!firstName.matches("[a-zA-Z]*")) {
+			System.out.println("A one word name. No spaces, only letters.");
+		}
+	    
+		} while (!firstName.matches("[a-zA-Z]*"));
+	
+	  
+		String lastName;
+		do {
+			System.out.println("Enter last name.");
+			lastName = scanner.nextLine();
+		
+			if (!lastName.matches("[a-zA-Z]*")) {
+				System.out.println("A one word name. No spaces, only letters.");
+			}
+		    
+			} while (!lastName.matches("[a-zA-Z]*"));
+		
+		
 		
 		String fullName = firstName.toUpperCase() + " " + lastName.toUpperCase();
 		employee.setFullName(fullName);
 						
-		try {
+		
 			
-			System.out.println("Enter age: ");
-			int age = scanner.nextInt();
-			scanner.nextLine();
+			
+			
+			int age;
+			
+			do {
+				System.out.println("Enter age: ");
+				while (!scanner.hasNextInt()) {
+					
+					System.out.println("Please print an integer.");
+					scanner.nextLine();
+				}
+				age = scanner.nextInt();
+				
+				if (age > 200 || age < 18) {
+					System.out.println("Please print a reasonable age. You are not over 200.");
+					System.out.println("You must also be at least 18 to work here.");
+				}
+				
+				
+				
+				
+			} while (age > 200 || age < 18);
+			
+		
 			employee.setAge(age);
-			
-		} catch(InputMismatchException e) {
-
-			
-
-			System.out.println("Please enter a real number: ");
-
-			scanner.nextLine();
-
-			create();
-		}
 		
 		
-		try {
 			
-			System.out.println("Enter phone number without hyphens.");
-			long phoneNumber = scanner.nextLong();
-			scanner.nextLine();
+			
+			long phoneNumber;
+			
+			
+			do {
+				System.out.println("Enter phone number without hyphens.");
+				while (!scanner.hasNextLong()) {
+					
+					System.out.println("A phone number must be exactly 10 digits.");
+					System.out.println("Print 800, not 1800, should your number be of this format.");
+					scanner.nextLine();
+				}
+				phoneNumber = scanner.nextLong();
+				scanner.nextLine();
+				
+				
+				
+				
+			} while (Long.toString(phoneNumber).length() != 10);
+					
+			
 			employee.setPhoneNumber(phoneNumber);
-			
-		} catch(InputMismatchException e) {
-
-			
-
-			System.out.println("Please enter a real number of 10 digits. ");
-			System.out.println("Start over.");
-			scanner.nextLine();
-			create();
-
-		}
 		
 
-		System.out.println("Enter gender. Type m for male, f for female, o for other");
-		String gender = scanner.nextLine();
+		String gender;
+		
+		do {
+			System.out.println("Enter gender. Type m for male, f for female, o for other");
+			gender = scanner.nextLine();
+			
+			if (!gender.equals("m") && !gender.equals("f") && !gender.equals("o"))
+				System.out.println("Please pick one of the three choices. Nothing else.");
+		}
+		
+		while (!gender.equals("m") && !gender.equals("f") && !gender.equals("o"));
+		
+
 		if (gender.equals("m")) {
 			g3 = GENDER.MALE;
 		}
@@ -444,15 +626,11 @@ public class Create {
 		else if (gender.equals("o")) {
 			g3 = GENDER.OTHER;
 		}
-		else {
-			System.out.println("You did not specify. Your gender will be labeled as other.");
-			g3 = GENDER.OTHER;
-		}
+
 		employee.setGender(g3);
 		
-		//FIND ME FIND ME FIND ME!!!! AND WRITE DOWN EXCEPTIONS PROPERLY!!!!!
 						
-		System.out.println("Setting up today as the day " + fullName + " starts work.");
+		//System.out.println("Setting up today as the day " + fullName + " starts work.");
 		String pattern = "yyyy-MM-dd";
 		SimpleDateFormat sdf = new SimpleDateFormat(pattern);
 		String date = sdf.format(new Date());
@@ -460,91 +638,325 @@ public class Create {
 		
 		
 		
-		System.out.println("Print month of birth. One word.");
-		System.out.println("Print 1 for January, 2 for February, 3 for March, etc.");
-		int birthMonth = scanner.nextInt();
 		
+		String birthMonth;
+		int birthDay = 0;
 		
+		do {
+			System.out.println("Print month of birth by number.");
+			System.out.println("Print 1 for January, 2 for February, 3 for March, etc.");
+			birthMonth = scanner.nextLine();
+			
+			if (!birthMonth.equals("1") && !birthMonth.equals("2") && !birthMonth.equals("3") &&
+					!birthMonth.equals("4") && !birthMonth.equals("5") && !birthMonth.equals("6") &&
+					!birthMonth.equals("7") && !birthMonth.equals("8") && !birthMonth.equals("9") &&
+					!birthMonth.equals("10") && !birthMonth.equals("11") && !birthMonth.equals("12")) {
+				System.out.println("Please pick one of the twelve choices. Nothing else.");
+			}
+				
+		}
 		
-		try {
-			scanner.nextLine();
+		while (!birthMonth.equals("1") && !birthMonth.equals("2") && !birthMonth.equals("3") &&
+				!birthMonth.equals("4") && !birthMonth.equals("5") && !birthMonth.equals("6") &&
+				!birthMonth.equals("7") && !birthMonth.equals("8") && !birthMonth.equals("9") &&
+				!birthMonth.equals("10") && !birthMonth.equals("11") && !birthMonth.equals("12"));
+
+		
+			
 			
 			switch (birthMonth) {
 			
-			case 1: 
+			case "1": 
 				m3 = MONTHS.JANUARY;
+				System.out.println("Print day of " + m3.toString() + " you were born on.");
+				
+					do {
+						
+						while (!scanner.hasNextInt()) {
+							
+							System.out.println("Please print an integer.");
+							scanner.nextLine();
+						}
+						birthDay = scanner.nextInt();
+						
+						if(birthDay < 1 || 31 < birthDay) {
+							System.out.println("Real date.");
+							scanner.nextLine();
+						}
+						
+					} while (birthDay < 1 || 31 < birthDay);
+				
 				break;
-			case 2: 
+			case "2": 
 				m3 = MONTHS.FEBRUARY;
+				System.out.println("Print day of " + m3.toString() + " you were born on.");
+				
+				do {
+					
+					while (!scanner.hasNextInt()) {
+						
+						System.out.println("Please print an integer.");
+						scanner.nextLine();
+					}
+					birthDay = scanner.nextInt();
+					
+					if(birthDay < 1 || 28 < birthDay) {
+						System.out.println("Real date.");
+						scanner.nextLine();
+					}
+					
+				} while (birthDay < 1 || 28 < birthDay);
 				break;
-			case 3: 
+			case "3": 
 				m3 = MONTHS.MARCH;
+				System.out.println("Print day of " + m3.toString() + " you were born on.");
+				
+				do {
+					
+					while (!scanner.hasNextInt()) {
+						
+						System.out.println("Please print an integer.");
+						scanner.nextLine();
+					}
+					birthDay = scanner.nextInt();
+					
+					if(birthDay < 1 || 31 < birthDay) {
+						System.out.println("Real date.");
+						scanner.nextLine();
+					}
+					
+				} while (birthDay < 1 || 31 < birthDay);
 				break;
-			case 4: 
+			case "4": 
 				m3 = MONTHS.APRIL;
+				System.out.println("Print day of " + m3.toString() + " you were born on.");
+				
+				do {
+					
+					while (!scanner.hasNextInt()) {
+						
+						System.out.println("Please print an integer.");
+						scanner.nextLine();
+					}
+					birthDay = scanner.nextInt();
+					
+					if(birthDay < 1 || 30 < birthDay) {
+						System.out.println("Real date.");
+						scanner.nextLine();
+					}
+					
+				} while (birthDay < 1 || 30 < birthDay);
 				break;
-			case 5: 
+			case "5": 
 				m3 = MONTHS.MAY;
+				System.out.println("Print day of " + m3.toString() + " you were born on.");
+				
+				do {
+					
+					while (!scanner.hasNextInt()) {
+						
+						System.out.println("Please print an integer.");
+						scanner.nextLine();
+					}
+					birthDay = scanner.nextInt();
+					
+					if(birthDay < 1 || 31 < birthDay) {
+						System.out.println("Real date.");
+						scanner.nextLine();
+					}
+					
+				} while (birthDay < 1 || 31 < birthDay);
 				break;
-			case 6: 
+			case "6": 
 				m3 = MONTHS.JUNE;
+				System.out.println("Print day of " + m3.toString() + " you were born on.");
+				
+				do {
+					
+					while (!scanner.hasNextInt()) {
+						
+						System.out.println("Please print an integer.");
+						scanner.nextLine();
+					}
+					birthDay = scanner.nextInt();
+					
+					if(birthDay < 1 || 30 < birthDay) {
+						System.out.println("Real date.");
+						scanner.nextLine();
+					}
+					
+				} while (birthDay < 1 || 30 < birthDay);
 				break;
-			case 7: 
+			case "7": 
 				m3 = MONTHS.JULY;
+				System.out.println("Print day of " + m3.toString() + " you were born on.");
+				
+				do {
+					
+					while (!scanner.hasNextInt()) {
+						
+						System.out.println("Please print an integer.");
+						scanner.nextLine();
+					}
+					birthDay = scanner.nextInt();
+					
+					if(birthDay < 1 || 31 < birthDay) {
+						System.out.println("Real date.");
+						scanner.nextLine();
+					}
+					
+				} while (birthDay < 1 || 31 < birthDay);
 				break;
-			case 8: 
+			case "8": 
 				m3 = MONTHS.AUGUST;
+				System.out.println("Print day of " + m3.toString() + " you were born on.");
+				
+				do {
+					
+					while (!scanner.hasNextInt()) {
+						
+						System.out.println("Please print an integer.");
+						scanner.nextLine();
+					}
+					birthDay = scanner.nextInt();
+					
+					if(birthDay < 1 || 31 < birthDay) {
+						System.out.println("Real date.");
+						scanner.nextLine();
+					}
+					
+				} while (birthDay < 1 || 31 < birthDay);
 				break;
-			case 9: 
+			case "9": 
 				m3 = MONTHS.SEPTEMBER;
+				System.out.println("Print day of " + m3.toString() + " you were born on.");
+				
+				do {
+					
+					while (!scanner.hasNextInt()) {
+						
+						System.out.println("Please print an integer.");
+						scanner.nextLine();
+					}
+					birthDay = scanner.nextInt();
+					
+					if(birthDay < 1 || 30 < birthDay) {
+						System.out.println("Real date.");
+						scanner.nextLine();
+					}
+					
+				} while (birthDay < 1 || 30 < birthDay);
 				break;
-			case 10: 
+			case "10": 
 				m3 = MONTHS.OCTOBER;
+				System.out.println("Print day of " + m3.toString() + " you were born on.");
+				
+				do {
+					
+					while (!scanner.hasNextInt()) {
+						
+						System.out.println("Please print an integer.");
+						scanner.nextLine();
+					}
+					birthDay = scanner.nextInt();
+					
+					if(birthDay < 1 || 31 < birthDay) {
+						System.out.println("Real date.");
+						scanner.nextLine();
+					}
+					
+				} while (birthDay < 1 || 31 < birthDay);
 				break;
-			case 11: 
+			case "11": 
 				m3 = MONTHS.NOVEMBER;
+				System.out.println("Print day of " + m3.toString() + " you were born on.");
+				
+				do {
+					
+					while (!scanner.hasNextInt()) {
+						
+						System.out.println("Please print an integer.");
+						scanner.nextLine();
+					}
+					birthDay = scanner.nextInt();
+					
+					if(birthDay < 1 || 30 < birthDay) {
+						System.out.println("Real date.");
+						scanner.nextLine();
+					}
+					
+				} while (birthDay < 1 || 30 < birthDay);
 				break;
-			case 12: 
+			case "12": 
 				m3 = MONTHS.DECEMBER;
+				System.out.println("Print day of " + m3.toString() + " you were born on.");
+				
+				do {
+					
+					while (!scanner.hasNextInt()) {
+						
+						System.out.println("Please print an integer.");
+						scanner.nextLine();
+					}
+					birthDay = scanner.nextInt();
+					
+					if(birthDay < 1 || 31 < birthDay) {
+						System.out.println("Real date.");
+						scanner.nextLine();
+					}
+					
+				} while (birthDay < 1 || 31 < birthDay);
 				break;
 			default:
 				System.out.println("You did not pick an option listed.");
-				System.out.println("You will be assigned the default 'november");
-				m3 = MONTHS.NOVEMBER;
 				break;
 			}
 			
-			System.out.println("Print day of " + m3.toString() + " you were born on.");
-			int birthDay = scanner.nextInt();
+			
+			
+			int birthYear;
+			do {
+				System.out.println("Print year of birth.");
+				while (!scanner.hasNextInt()) {
+					
+					System.out.println("Print a number.");
+					scanner.nextLine();
+				}
+				birthYear = scanner.nextInt();
+				
+				if (birthYear < 1800 || 2019 < birthYear) {
+					System.out.println("Real year. You weren't born this early or this late.");
+					scanner.nextLine();
+				}
+				
+			} while (birthYear < 1800 || 2019 < birthYear);
 			scanner.nextLine();
-			//Check for day being less than 31.
-			//Consider checking for september 31 if we have time.
-			
-			
-			System.out.println("Print year of birth.");
-			int birthYear = scanner.nextInt();
-			scanner.nextLine();
-			//Check that this is 4 digits long exactly.
-			
-			
-			//Make the whole birthday.
 			String birthDate = m3.toString().toLowerCase() + " " + birthDay + ", " + birthYear;
 			employee.setDateOfBirth(birthDate);
-		} catch(InputMismatchException e) {
-			
-			System.out.println("Print a real number.");
-			System.out.println("Start over.");
-			create();
-			
-		}
+		
 		
 
 		
 				
 				
-		System.out.println("What department do you work in? Make this enum later. For now, one letter.");
-		System.out.println("i for IT, m for Marketing, h for HR.");
-		String dept = scanner.nextLine();
+		
+		
+		
+		
+		String dept;
+		
+		do {
+			System.out.println("What department do you work in?.");
+			System.out.println("Type i for IT, m for Marketing, h for HR.");
+			dept = scanner.nextLine();
+			
+			if (!dept.equals("i") && !dept.equals("m") && !dept.equals("h"))
+				System.out.println("Please pick one of the three choices. Nothing else.");
+		}
+		
+		while (!dept.equals("i") && !dept.equals("m") && !dept.equals("h"));
+		
+
 		if (dept.equals("i")) {
 			d3 = DEPARTMENT.IT;
 					
@@ -557,13 +969,9 @@ public class Create {
 		}
 		else {
 			System.out.println("Do a real option.");
-			d3 = DEPARTMENT.HR;
 					
 		}
 		employee.setDept(d3);
-		
-		
-		
 		
 		employee.setAddress(address);
 		

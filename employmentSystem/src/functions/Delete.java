@@ -22,43 +22,42 @@ public class Delete {
 			System.out.println(key);
 		}
 		
-		System.out.println("Please enter the ID of the person you want to delete:");
 		
-		try {
-			int updateID = scanner.nextInt();
+		
+		
+	
+			
+		int updateID;
+			
+		do {
+			System.out.println("Enter ID of user you want to view: ");
 			
 			
-			if (MainClass.empHash.containsKey(updateID)) {
+			while (!scanner.hasNextInt()) {
+				scanner.nextLine();
+				System.out.println("Please print an integer.");
+			}
+			updateID = scanner.nextInt();
+			
+			if (!MainClass.empHash.containsKey(updateID)) {
+				System.out.println("Please pick one of the possible IDs.");
+				scanner.nextLine();
+			}
+			
 				
-				System.out.println("Employee with name " + MainClass.empHash.get(updateID).getFullName() 
-				+ " has been deleted.");
-				MainClass.empHash.remove(updateID);
-			}
-			
-			else {
-				System.out.println("Please print a valid employee.");
-				delete();
-			}
-			
-			
-			WriteToSystem.serializeObject(MainClass.empHash, "content.txt");
-			
-		} catch (InputMismatchException e) {
-
-			
-
-			System.out.println("Please Enter Vaild ID: ");
-
-			
-
-			scanner.nextLine();
-
-			
-
-			delete();
+		}
 		
+		while (!MainClass.empHash.containsKey(updateID));
 		
-	}
+				
+		System.out.println("Employee with name " + MainClass.empHash.get(updateID).getFullName() 
+		+ " has been deleted.");
+		MainClass.empHash.remove(updateID);
+			
+			
+		WriteToSystem.serializeObject(MainClass.empHash, "content.txt");
+			
+		
 	
 	
 	}

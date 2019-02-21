@@ -28,84 +28,39 @@ public class MainClass {
 	public static Scanner scanner = new Scanner(System.in);
 	public static LinkedHashMap<Integer, Employee> empHash = new LinkedHashMap<Integer, Employee>();
 	public static int[] keyValues = new int[500];
+	
+	public static String fileName = "content.txt";
 
 
 	public static void main(String[] args) throws IOException, Exception {
 		
-		//None of the scanner.whatever plan for the exception of nextInt.
-		//Is there a way to work around this?
-		//Or should everything be nextLine?
 		
-		
-	/*
-	 * } catch (InputMismatchException e) {
-	 
-
-		do {
-
-			System.out.println("Please Input a Valid Number: ");
-
-			scanner.nextLine();
-
-			if (scanner.hasNextInt())
-
-				break;
-
-		} while (scanner.hasNextLine()); */
+		//Find a way to print the array as strings. 
 		
 		
 		
-		
-		//Live in US?
 		//boolean usLiving = true;
 		//Program over?
 		boolean endProgram = true;
 		//Do another program?
-		boolean contForward = true;
+		boolean contForward;
 		
 		
 		System.out.println("The system is only equipped to hold 500 people, as that is the current");
 		System.out.println("maximum number of employees that Collabera can hire.");
 		System.out.println("We will update the system as max employee count increases. \n \n \n");
-		
-//		while (usLiving) {
-//		
-//			System.out.println("Do you live in the US? Press 1 for yes, 2 for no, 3 to quit.");
-//			
-//			
-//			int choice = scanner.nextInt();
-//			scanner.nextLine();
-//			
-//			if (choice == 1) {
-//				System.out.println("Great to hear. \n");
-//				usLiving = false;
-//			}
-//			
-//			else if (choice == 2) {
-//				System.out.println("Sorry, but this system only works for US addresses.");
-//			}
-//			else if (choice == 3) {
-//				System.out.println("Thank you for using the EMS.");
-//				System.exit(0);
-//			}
-//			
-//			else {
-//				System.out.println("That's not one of the choices.");
-//			}
-//			
-//			
-//		}
+	
 		
 			
 		while (endProgram) {
 			
 			contForward = true;
 			
-			File file = new File("content.txt");
+			File file = new File(fileName);
 			
 			if (file.exists()) {
 				
-				empHash = (LinkedHashMap<Integer, Employee>) WriteFromSystem.deserializeObject("content.txt");
+				empHash = (LinkedHashMap<Integer, Employee>) WriteFromSystem.deserializeObject(fileName);
 				System.out.println("This is the current form of the employee HashMap:");
 				
 				if (empHash.isEmpty()) {
@@ -276,3 +231,57 @@ public class MainClass {
 	
 
 }
+
+
+//None of the scanner.whatever plan for the exception of nextInt.
+//Is there a way to work around this?
+//Or should everything be nextLine?
+
+
+/*
+* } catch (InputMismatchException e) {
+
+
+do {
+
+	System.out.println("Please Input a Valid Number: ");
+
+	scanner.nextLine();
+
+	if (scanner.hasNextInt())
+
+		break;
+
+} while (scanner.hasNextLine()); */
+
+
+//while (usLiving) {
+//
+//	System.out.println("Do you live in the US? Press 1 for yes, 2 for no, 3 to quit.");
+//	
+//	
+//	int choice = scanner.nextInt();
+//	scanner.nextLine();
+//	
+//	if (choice == 1) {
+//		System.out.println("Great to hear. \n");
+//		usLiving = false;
+//	}
+//	
+//	else if (choice == 2) {
+//		System.out.println("Sorry, but this system only works for US addresses.");
+//	}
+//	else if (choice == 3) {
+//		System.out.println("Thank you for using the EMS.");
+//		System.exit(0);
+//	}
+//	
+//	else {
+//		System.out.println("That's not one of the choices.");
+//	}
+//	
+//	
+//}
+
+
+//Live in US?

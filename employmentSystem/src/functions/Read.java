@@ -14,63 +14,61 @@ public class Read {
 		
 		
 		Scanner scanner = MainClass.scanner;
-		
-		
-		boolean largeOrSmall = true;
-		
+				
 		boolean leaveProgram = true;
 		
 		
-		try {
+		
 			
-			while (largeOrSmall) {
-				System.out.println("Would you like to see the whole list, or just one employee?");
-				System.out.println("Press 1 to see the whole list, press 2 to choose an employee.");
-				int choice = scanner.nextInt();
-				scanner.nextLine();
-				if (choice == 1) {
+				
+				
+				String choice;
+				do {
+					System.out.println("Would you like to see the whole list, or just one employee?");
+					System.out.println("Type whole to see the whole list, type one to choose an employee.");
+					choice = scanner.nextLine();
+					
+					if (!choice.equals("whole") && !choice.equals("one"))
+						System.out.println("Please pick one of the two choices. Nothing else.");
+				} while (!choice.equals("whole") && !choice.equals("one"));
+				
+				
+				if (choice.equals("whole")) {
 					for (int key : MainClass.empHash.keySet()) {
 						System.out.println(MainClass.empHash.get(key));
 					}
-					leaveProgram = false;
+				}
+				else if (choice.equals("one")) {
 					
-					largeOrSmall = false;
+					System.out.println("Here are the possible IDs to read:");
 					
-				}
-				else if (choice == 2) {
-					largeOrSmall = false;
-				}
-				else {
-					System.out.println("Please print one of the two choices.");
-				}
-				
-			}
-			
-		} catch(InputMismatchException e) {
-			System.out.println("Please print a number.");
-			System.out.println("Start over.");
-			reader();
-		}
-		
-			
-		
-
-			while(leaveProgram) {
-				System.out.println("Here are the possible IDs to read:");
-				
-				for (int key : MainClass.empHash.keySet()) {
-					System.out.println(key);
-				}
-				
-				System.out.println("Enter ID of user you want to view: ");
-				
-				try {
+					for (int key : MainClass.empHash.keySet()) {
+						System.out.println(key);
+					}
+					int updateID;
 					
-					int updateID = scanner.nextInt();
-					scanner.nextLine();
+					do {
+						System.out.println("Enter ID of user you want to view: ");
+						
+						
+						while (!scanner.hasNextInt()) {
+							scanner.nextLine();
+							System.out.println("Please print an integer.");
+						}
+						updateID = scanner.nextInt();
+						
+						if (!MainClass.empHash.containsKey(updateID)) {
+							System.out.println("Please pick one of the possible IDs.");
+							scanner.nextLine();
+						}
+						
+							
+					}
+					
+					while (!MainClass.empHash.containsKey(updateID));
+					
 					
 					Employee employee = MainClass.empHash.get(updateID);
-					//Don't continue if not actually existing ID.***
 					
 					System.out.println("What detail would you like to view?");
 					System.out.println("Please note that, due to safety reasons, "
@@ -92,132 +90,117 @@ public class Read {
 					System.out.println("Press 12 for viewing the day the employee started work.");
 					
 					
-					int choice = scanner.nextInt();
+					int choiceView;
 					
-					switch(choice) {
-						case 0: 
-							System.out.println("These are all details about the employee:");
-							System.out.println(employee);
-							//leaveProgram = false;
-							break;
-						case 1: 
-							System.out.println("This is the date of birth:");
-							System.out.println(employee.getDateOfBirth());
-							//leaveProgram = false;
-							break;
-						case 2: //
-							System.out.println("This is the department:");
-							System.out.println(employee.getDept());
-							break;
-						case 3: 
-							System.out.println("This is the email:");
-							System.out.println(employee.getEmail() + "@Collabera.com");
-							break;
-						case 4: 
-							System.out.println("This is the job title:");
-							System.out.println(employee.getJobTitle());
-							break;
-						case 5: 
-							System.out.println("This is the social security number:");
-							int ssn = employee.getSsn();
-							String ssnString = Integer.toString(ssn);
-							System.out.println(ssnString.substring(0, 3) + "-" + ssnString.substring(3, 5) + "-" + ssnString.substring(5, 9));
-							break;
-						case 6: 
-							System.out.println("This is the salary:");
-							System.out.print("$");
-							System.out.printf("%.2f", employee.getSalary());
-							System.out.println();
-							break;
-						case 7: 
-							System.out.println("This is the full name:");
-							System.out.println(employee.getFullName());
-							break;
-						case 8: 
-							System.out.println("This is the phone number:");
-							
-							double phoneNumber = employee.getPhoneNumber();
-							String phoneString = String.format("%.0f\n", phoneNumber);
-							System.out.println(phoneString.substring(0, 3) + "-" 
-									+ phoneString.substring(3, 6)
-									+ "-" + phoneString.substring(6, 10));
-							break;
-						case 9: 
-							System.out.println("This is the person's complete address:");
-							System.out.println(employee.getAddress().toString());
-							break;
-							
-						case 10: 
-							System.out.println("This is the person's gender:");
-							System.out.println(employee.getGender());
-							break;	
+					do {
+						System.out.println("Choose between 0 and 12.");
 						
-						case 11: 
-							System.out.println("This is the person's age:");
-							System.out.println(employee.getAge());
-							break;
 						
-						case 12: 
-							System.out.println("This is the person's date they started work:");
-							System.out.println(employee.getDateStartWork());
-							break;
-							
-						default:
-							System.out.println("You have inputted something invalid.");
-							//Somehow get the statement to start over.
-							break;	
+						while (!scanner.hasNextInt()) {
+							System.out.println("Print a real number.");
+							scanner.nextLine();
+						}
+						
+						
+						
+						choiceView = scanner.nextInt();
+						if (choiceView != 0 && choiceView != 1 && choiceView != 2 &&
+							choiceView != 3 && choiceView != 4 && choiceView != 5 &&
+							choiceView != 6 && choiceView != 7 && choiceView != 8 && 
+							choiceView != 9 && choiceView != 10 && choiceView != 11 && 
+							choiceView != 12) 
+						{
+							System.out.println("Please pick one of the thirteen choices. Nothing else.");
+							//scanner.nextLine();
+						}
 					}
 					
+					while (choiceView != 0 && choiceView != 1 && choiceView != 2 &&
+							choiceView != 3 && choiceView != 4 && choiceView != 5 &&
+							choiceView != 6 && choiceView != 7 && choiceView != 8 && 
+							choiceView != 9 && choiceView != 10 && choiceView != 11 && 
+							choiceView != 12);
 					
-					leaveProgram = false;
-
+					switch(choiceView) {
+					case 0: 
+						System.out.println("These are all details about the employee:");
+						System.out.println(employee);
+						
+						break;
+					case 1: 
+						System.out.println("This is the date of birth:");
+						System.out.println(employee.getDateOfBirth());
+						
+						break;
+					case 2: 
+						System.out.println("This is the department:");
+						System.out.println(employee.getDept());
+						break;
+					case 3: 
+						System.out.println("This is the email:");
+						System.out.println(employee.getEmail() + "@Collabera.com");
+						break;
+					case 4: 
+						System.out.println("This is the job title:");
+						System.out.println(employee.getJobTitle());
+						break;
+					case 5: 
+						System.out.println("This is the social security number:");
+						int ssn = employee.getSsn();
+						String ssnString = Integer.toString(ssn);
+						System.out.println(ssnString.substring(0, 3) + "-" + ssnString.substring(3, 5) + "-" + ssnString.substring(5, 9));
+						break;
+					case 6: 
+						System.out.println("This is the salary:");
+						System.out.print("$");
+						System.out.printf("%.2f", employee.getSalary());
+						System.out.println();
+						break;
+					case 7: 
+						System.out.println("This is the full name:");
+						System.out.println(employee.getFullName());
+						break;
+					case 8: 
+						System.out.println("This is the phone number:");
+						
+						double phoneNumber = employee.getPhoneNumber();
+						String phoneString = String.format("%.0f\n", phoneNumber);
+						System.out.println(phoneString.substring(0, 3) + "-" 
+								+ phoneString.substring(3, 6)
+								+ "-" + phoneString.substring(6, 10));
+						break;
+					case 9: 
+						System.out.println("This is the person's complete address:");
+						System.out.println(employee.getAddress().toString());
+						break;
+						
+					case 10: 
+						System.out.println("This is the person's gender:");
+						System.out.println(employee.getGender());
+						break;	
 					
-				} catch(InputMismatchException e) {
-					System.out.println("Please print an actual number. ");
-					System.out.println("Start over.");
+					case 11: 
+						System.out.println("This is the person's age:");
+						System.out.println(employee.getAge());
+						break;
+					
+					case 12: 
+						System.out.println("This is the person's date they started work:");
+						System.out.println(employee.getDateStartWork());
+						break;
+						
+					default:
+						System.out.println("You have inputted something invalid.");
+						
+						break;	
 				}
-				catch (NullPointerException e) {
-
-					System.out.println("");
-
-					scanner.nextLine();
-
-					reader();
-
-
-
-				}
-				
-					
+					//scanner.nextLine();
 					
 				}
-				
-				
-			
-			
-			
-			
-			
-			
-			
-		
-		
-		
-		
-		
-		
-		
-		
-		
-          
-          
-          
-          
-          
-          
-          
-		
-		
+				else {
+					System.out.println("Please print one of the two choices.");
+				}
+
 		
 		
 	}

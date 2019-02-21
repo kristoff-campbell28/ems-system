@@ -1,5 +1,6 @@
 package employmentSystem;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import enums.DEPARTMENT;
@@ -10,7 +11,7 @@ import enums.JOBTITLE;
 
 
 
-public class Employee extends Person {
+public class Employee extends Person implements Serializable, Comparable<Employee> {
 
 
 
@@ -65,37 +66,38 @@ public class Employee extends Person {
     }
 	
 	
-	@Override
-	public String toString() {
-		
-		
-		
-		return "Below are the details of employee with ID " + employeeID + " : \n"
-				+ "Date of birth is: " + dateOfBirth + "\n"
-				+ "Department they inhabit is: " + dept + "\n"
-				+ "Email is: " + email + "@Collabera.com \n"
-				+ "Their job title is: " + jobTitle + "\n"
-				+ "Social Security Number is: " 
-				+ Integer.toString(ssn).substring(0, 3) + "-" + Integer.toString(ssn).substring(3, 5) + "-" + Integer.toString(ssn).substring(5, 9)
-				+ "\n"
-				+ "Salary is: " + salary + "\n"
-				+ "Full name is: " + fullName + "\n"
-				+ "Age is: " + age + "\n"
-				+ "Phone Number is: " 
-				+ Long.toString(phoneNumber).substring(0, 3) + "-" + Long.toString(phoneNumber).substring(3, 6)
-				+ "-" + Long.toString(phoneNumber).substring(6, 10)
-				+ "\n"
-				+ "Their gender is " + gender + "\n" 
-				+ "Date they joined the company is: " + dateStartWork + "\n"
-				+ "Their address is: \n" 
-				+ address.getStreetNumber()
-				 + " " + address.getStreetName() + "\n"
-				+ address.getCity() + ", " + address.getState() + 
-				" " + address.getZipCode() + "\n";
-				
-				
-			
-	}
+//	@Override
+//	public String toString() {
+//		
+//		
+//		
+//		return "Below are the details of employee with ID " + employeeID + " : \n"
+//				+ "Date of birth is: " + dateOfBirth + "\n"
+//				+ "Department they inhabit is: " + dept + "\n"
+//				+ "Email is: " + email + "@Collabera.com \n"
+//				+ "Their job title is: " + jobTitle + "\n"
+//				+ "Social Security Number is: " 
+//				+ Integer.toString(ssn).substring(0, 3) + "-" + Integer.toString(ssn).substring(3, 5) + "-" + Integer.toString(ssn).substring(5, 9)
+//				+ "\n"
+//				+ "Salary is: " + salary + "\n"
+//				+ "Full name is: " + fullName + "\n"
+//				+ "Age is: " + age + "\n"
+//				+ "Phone Number is: " 
+//				+ Long.toString(phoneNumber).substring(0, 3) + "-" + Long.toString(phoneNumber).substring(3, 6)
+//				+ "-" + Long.toString(phoneNumber).substring(6, 10)
+//				+ "\n"
+//				+ "Their gender is " + gender + "\n" 
+//				+ "Date they joined the company is: " + dateStartWork + "\n"
+//				+ "Their address is: \n" 
+//				+ address.getStreetNumber()
+//				 + " " + address.getStreetName() + "\n"
+//				+ address.getCity() + ", " + address.getState() + 
+//				" " + address.getZipCode() + "\n";
+//				
+//				
+//			
+//	}
+	
 	
 	
 
@@ -118,6 +120,55 @@ public class Employee extends Person {
 		this.person = person;
 		address = address2;
 	}
+	
+	//Optional
+//	@Override
+//	public boolean equals(Object obj) {
+//		
+//
+//		Employee emp = null;
+//		if (obj instanceof Employee) {
+//			emp = (Employee) obj;
+//		}
+//		else {
+//			//handle this.
+//		}
+//		
+//		if (this.getEmployeeID() == emp.getEmployeeID()) {
+//			return true;
+//		}
+//		else {
+//			return false;
+//		}
+//	}
+//	
+	
+	
+	@Override
+	public String toString() {
+		return "Employee [dateStartWork=" + dateStartWork + ", dept=" + dept + ", employeeID=" + employeeID + ", email="
+				+ email + ", jobTitle=" + jobTitle + ", ssn=" + ssn + ", salary=" + salary + ", person=" + person
+				+ ", address=" + address + "]";
+	}
+
+	public boolean equals(Object obj) {
+		
+
+		Employee emp = null;
+		if (obj instanceof Employee && this.getAge() == ((Employee) obj).getAge()) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return super.hashCode();
+	}
+	
 
 	public Person getPerson() {
 		return person;
@@ -199,6 +250,18 @@ public class Employee extends Person {
 		this.salary = salary;
 	}
 
+	private void compareTo() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public int compareTo(Employee o) {
+		// TODO Auto-generated method stub
+		return this.age-o.getAge();
+	}
+
+	
 
 
 }
